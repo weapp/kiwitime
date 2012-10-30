@@ -12,4 +12,34 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
+*.log
 /tmp
+
+
+#Improve gitignore
+/tmp/**/*
+/tmp/*
+
+
+*.gem
+*.rbc
+.bundle
+.config
+coverage
+InstalledFiles
+lib/bundler/man
+pkg
+rdoc
+spec/reports
+test/tmp
+test/version_tmp
+tmp
+
+# YARD artifacts
+.yardoc
+_yardoc
+doc/
+
+*.swp
+*~
+.DS_Store
