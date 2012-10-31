@@ -10,3 +10,5 @@ rake db:migrate
 
 //rails destroy scaffold Micropost
 
+//rails g migration add_email_uniqueness_index
+
