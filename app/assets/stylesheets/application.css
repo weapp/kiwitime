@@ -11,3 +11,35 @@
  *= require_self
  *= require_tree .
  */
+
+//= require_tree .
+
+th, td {
+	padding:10px;
+	border:1px solid whitesmoke;
+}
+
+th{
+	background: whitesmoke;
+	border: 1px solid lightgrey;
+}
+
+table{
+	width:100%;
+}
+
+th:empty{
+	width: 30px;
+	#display:none;
+	visibility: hidden;
+}
+
+a:hover{
+	background: none !important;
+}
+
+a:visited{
+	color: #08C !important;
+}
+
+

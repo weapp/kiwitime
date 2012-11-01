@@ -1,0 +1,26 @@
+# == Schema Information
+#
+# Table name: sittings
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  task_id    :integer
+#  start      :datetime
+#  end        :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  task_id: 1
+  start: 2012-11-01 21:09:31
+  end: 2012-11-01 21:09:31
+
+two:
+  user_id: 1
+  task_id: 1
+  start: 2012-11-01 21:09:31
+  end: 2012-11-01 21:09:31

@@ -1,0 +1,29 @@
+<h1>Listing sittings</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Task</th>
+    <th>Start</th>
+    <th>End</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @sittings.each do |sitting| %>
+  <tr>
+    <td><%= sitting.user_id %></td>
+    <td><%= sitting.task_id %></td>
+    <td><%= sitting.start %></td>
+    <td><%= sitting.end %></td>
+    <td><%= link_to 'Show', sitting %></td>
+    <td><%= link_to 'Edit', edit_sitting_path(sitting) %></td>
+    <td><%= link_to 'Destroy', sitting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Sitting', new_sitting_path %>

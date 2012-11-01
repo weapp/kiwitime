@@ -1,5 +1,14 @@
 Kiwitime::Application.routes.draw do
+
+  resources :projects do
+    resources :tasks do
+      resources :sittings
+    end
+  end
+
   resources :users
+
+
   root to: "users#index"
 
   # The priority is based upon order of creation:
