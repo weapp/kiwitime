@@ -17,4 +17,7 @@ class Task < ActiveRecord::Base
 
   has_many :sittings
   belongs_to :project
+
+  has_many :users,  :through => :sittings
+
 end

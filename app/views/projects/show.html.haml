@@ -15,8 +15,15 @@
 
 -unless @project.tasks.empty?
   - @project.tasks.each do |task|
-    %div{class: task.finished && "muted", style: task.finished && "opacity:.5;background:#FAFAFA"}
+    %div{class: task.finished && "row muted" || "row", style: task.finished && "opacity:.5;background:#FAFAFA"}
+      .span1
+        .pull-right
+          - task.users.uniq.each do |user|
+            = gravatar_for user, size:20
       .btn-group.pull-right
+        %a.btn.btn-small(href='#{project_task_path(@project, task)}/sittings/new')
+          New Sitting
+          %i.icon-plus
         %a.btn.btn-small(href='#{edit_project_task_path(@project, task)}')
           Edit
           %i.icon-edit
@@ -25,10 +32,12 @@
         %a.btn.btn-small{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_path(@project, task), rel: "nofollow"}
           Delete
           %i.icon-remove
-      %h4
-        = link_to task.name, project_task_path(@project, task)
-        %small (#{task.time_forecast} minutes)
-      %small= task.description
+      .span4
+        %a
+          = link_to task.name, project_task_path(@project, task)
+          %small (#{task.sittings.sum{|s| s.delta}} of #{task.time_forecast} minutes)
+        %small= task.description
+    %br
       
 
 %br

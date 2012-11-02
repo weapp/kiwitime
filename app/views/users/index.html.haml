@@ -1,0 +1,24 @@
+%table
+  %tr
+    %th
+    %th Name
+    %th Email
+    %th
+    %th
+  - @users.each do |user|
+    %tr
+      %td
+        = gravatar_for user
+      %td
+        %a{href:user_path(user)}
+          = user.name
+      %td= user.email
+      
+      %td= link_to 'Edit', edit_user_path(user)
+      %td= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+.pull-right
+  %a(href='#{new_user_path}' class='btn btn-primary') New User 
+%br
+%br

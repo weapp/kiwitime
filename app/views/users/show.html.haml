@@ -1,0 +1,19 @@
+%p#notice= notice
+.row
+  .span1
+    = gravatar_for @user
+  .span7
+    %p
+      %b Name:
+      = @user.name
+    %p
+      %b Email:
+      = @user.email
+
+%br
+%a.btn{href:edit_user_path(@user)}
+  Edit
+
+%a.btn{href:users_path}
+  Back
+
