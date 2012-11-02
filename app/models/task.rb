@@ -16,4 +16,5 @@ class Task < ActiveRecord::Base
   attr_accessible :description, :finished, :name, :project_id, :time_forecast
 
   has_many :sittings
+  belongs_to :project
 end
