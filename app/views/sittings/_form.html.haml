@@ -1,0 +1,27 @@
+= form_for([@project, @task, @sitting]) do |f|
+  =f.simple_fields_for :sitting do |ff|
+    - if @sitting.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@sitting.errors.count, "error")
+          prohibited this sitting from being saved:
+        %ul
+          - @sitting.errors.full_messages.each do |msg|
+            %li= msg
+    .field
+      = f.label :user_id
+      = f.number_field :user_id
+    .field
+      = f.label :task_id
+      = f.number_field :task_id
+    .field
+      = f.label :start
+      = f.datetime_select :start
+
+      = #ff.input :start, :as=>"string", :input_html => {"data-datepicker" => "datepicker", :class =>"small"}
+
+    .field
+      = f.label :end
+      = f.datetime_select :end, :html => { :style => "border:1px solid #000" }
+    .actions
+      = f.submit
