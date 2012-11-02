@@ -1,0 +1,35 @@
+!!!
+%html
+  %head
+    %title Kiwitime
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+    %link{:href => "http://twitter.github.com/bootstrap/assets/css/bootstrap.css", :rel => "stylesheet"}
+  %body
+    %nav
+      .container
+        = link_to "Users", users_path
+        |
+        = link_to "Projects", projects_path
+
+    .container
+      = yield
+    %footer
+      .container
+        %hr
+        = debug(params)
+    %script{:src => "http://code.jquery.com/jquery.min.js"}
+    %script{:src => "https://raw.github.com/twitter/bootstrap/master/js/bootstrap-transition.js"}
+    %script{:src => "https://raw.github.com/twitter/bootstrap/master/js/bootstrap-alert.js"}
+    %script{:src => "https://raw.github.com/twitter/bootstrap/master/js/bootstrap-modal.js"}
+    %script{:src => "https://raw.github.com/twitter/bootstrap/master/js/bootstrap-dropdown.js"}
+    %script{:src => "https://raw.github.com/twitter/bootstrap/master/js/bootstrap-scrollspy.js"}
+    %script{:src => "https://raw.github.com/twitter/bootstrap/master/js/bootstrap-tab.js"}
+    %script{:src => "https://raw.github.com/twitter/bootstrap/master/js/bootstrap-tooltip.js"}
+    %script{:src => "https://raw.github.com/twitter/bootstrap/master/js/bootstrap-popover.js"}
+    %script{:src => "https://raw.github.com/twitter/bootstrap/master/js/bootstrap-button.js"}
+    %script{:src => "https://raw.github.com/twitter/bootstrap/master/js/bootstrap-collapse.js"}
+    %script{:src => "https://raw.github.com/twitter/bootstrap/master/js/bootstrap-carousel.js"}
+    %script{:src => "https://raw.github.com/twitter/bootstrap/master/js/bootstrap-typeahead.js"}
+    = javascript_include_tag "bootstrap-datepicker"

@@ -1,0 +1,42 @@
+%p#notice= notice
+
+.page-header
+  %h1
+    = @project.name
+    %small
+      = link_to 'Edit', edit_project_path(@project)
+
+%table
+  %tr
+    %th Task
+    %th Description
+    %th Time forecast
+    %th Finished
+    %th
+  - @project.tasks.each do |task|
+    %tr
+      %td= link_to task.name, project_task_path(@project, task)
+      %td= task.description
+      %td= task.time_forecast
+      %td= task.finished && "yes" || "notice"
+      %td
+        %a(href='#{edit_project_task_path(@project, task)}')
+          %i.icon-edit
+        =#%td= link_to "×", [@project, task], method: :delete, data: { confirm: 'Are you sure?' }
+        &nbsp;
+        %a{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_path(@project, task), rel: "nofollow"}
+          %i.icon-remove
+
+%br
+.pull-right
+  %a(href='#{params[:id]}/tasks/new' class='btn btn-primary') New Task 
+%br
+%br
+=# link_to 'New Task', new_project_task_path
+
+
+%br
+
+
+=# link_to 'Tasks', project_tasks_path(@project)
+= link_to 'Back', projects_path, class: 'btn' 
