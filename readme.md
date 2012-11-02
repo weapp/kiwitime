@@ -8,6 +8,9 @@ rails g scaffold Project name:string
 rails g scaffold Task name:string description:string time_forecast:integer project_id:integer finished:boolean
 rails g scaffold Sitting user_id:integer task_id:integer start:datetime end:datetime
 
+rails g migration remove_start_and_end_from_sittings start:datetime end:datetime
+rails g migration add_day_to_sittings day:date start:time end:time
+
 //rails g scaffold Micropost content:string user_id:integer
 
 rake db:migrate
@@ -20,3 +23,5 @@ rake db:migrate
 
 //gem install annotate
 //annotate
+
+

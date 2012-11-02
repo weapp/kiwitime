@@ -40,7 +40,7 @@
       %th
     - @task.sittings.each do |sitting|
       %tr
-        %td= sitting.user.name
+        %td= sitting.user && sitting.user.name
         %td= sitting.start
         %td= sitting.end
         =# %td= link_to 'Show', project_task_sitting_path(@project, @task, sitting)

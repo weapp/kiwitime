@@ -15,15 +15,17 @@
       = f.label :task_id
       = f.number_field :task_id
     .field
+      = f.label :day
+      = f.date_select :day
+    .field
       = f.label :start
-      = f.datetime_select :start
-      = f.text_field :start
+      = f.time_select :start
+      = #f.text_field :start
 
       = #ff.input :start, :as=>"string", :input_html => {"data-datepicker" => "datepicker", :class =>"small"}
-
     .field
       = f.label :end
-      = f.datetime_select(:end, :prompt => true)
+      = f.time_select(:end, :prompt => true)
       =# f.datetime_select :end, :html => { :style => "border:1px solid #000" }
     .actions
       = f.submit

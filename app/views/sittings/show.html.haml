@@ -1,0 +1,22 @@
+%p#notice= notice
+%p
+  %b User:
+  = @sitting.user_id
+%p
+  %b Task:
+  = @sitting.task_id
+%p
+  %b Day:
+  = @sitting.day
+%p
+  %b Start:
+  = @sitting.start.strftime("%H:%M")
+%p
+  %b End:
+  - unless @sitting.end.hour == 0 and @sitting.end.min == 0
+    = @sitting.end.strftime("%H:%M")
+  - else
+    in progress
+= link_to 'Edit', edit_project_task_sitting_path(@sitting)
+|
+= link_to 'Back', project_task_sittings_path
