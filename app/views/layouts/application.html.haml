@@ -7,17 +7,32 @@
     = csrf_meta_tags
     %link{:href => "http://twitter.github.com/bootstrap/assets/css/bootstrap.css", :rel => "stylesheet"}
   %body
-    %nav
-      .container
-        = link_to "Users", users_path
-        |
-        = link_to "Projects", projects_path
 
     .container
-      = yield
+
+      .navbar
+        .navbar-inner
+          %a.brand{href:"/"}
+            Kiwitime!
+
+      .row
+        .span3
+          %nav.well
+            %ul.nav.nav-pills.nav-stacked
+              %li
+                = link_to "Users", users_path
+              %li
+                = link_to "Projects", projects_path
+
+        .span9
+          = yield
     %footer
       .container
         %hr
+        © Batkiwi 2012
+        %br
+        %br
+        %br
         = debug(params)
     %script{:src => "http://code.jquery.com/jquery.min.js"}
     %script{:src => "https://raw.github.com/twitter/bootstrap/master/js/bootstrap-transition.js"}

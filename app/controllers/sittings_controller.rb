@@ -83,7 +83,7 @@ class SittingsController < ApplicationController
     @sitting.destroy
 
     respond_to do |format|
-      format.html { redirect_to sittings_url }
+      format.html { redirect_to project_task_sittings_url }
       format.json { head :no_content }
     end
   end

@@ -1,0 +1,68 @@
+%p#notice= notice
+
+.page-header
+  %h2
+    \#{@task.name}
+    %small
+      (on #{@task.project.name})
+    %small
+      .btn-group.pull-right
+        %a.btn{href: edit_project_task_path(@project, @task)}
+          Edit
+          %i.icon-edit
+        %a.btn{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_path(@project, @task), rel: "nofollow"}
+          Delete
+          %i.icon-remove
+
+
+    %small
+      .muted
+        = @task.description
+
+%p
+  %i.icon-time
+  %b Time forecast:
+  = @task.time_forecast
+%p
+  %i.icon-check
+  %b Finished:
+  = @task.finished && "yes" || "no"
+
+=# link_to 'Sittings', project_task_sittings_path(@project, @task)
+
+
+- unless @task.sittings.empty?
+  %table
+    %tr
+      %th User
+      %th Start
+      %th End
+      %th
+    - @task.sittings.each do |sitting|
+      %tr
+        %td= sitting.user.name
+        %td= sitting.start
+        %td= sitting.end
+        =# %td= link_to 'Show', project_task_sitting_path(@project, @task, sitting)
+        %td
+          %a(href='#{project_task_sitting_path(@project, @task, sitting)}')
+            %i.icon-eye-open
+          &nbsp;
+          %a(href='#{edit_project_task_sitting_path(@project, @task, sitting)}')
+            %i.icon-edit
+          &nbsp;
+          %a{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_sitting_path(@project, @task, sitting), rel: "nofollow"}
+            %i.icon-remove
+
+
+%br
+.pull-right
+  %a(href='#{params[:id]}/sittings/new' class='btn btn-primary') New Sitting
+%br
+%br
+
+
+
+
+
+= link_to 'Back', project_tasks_path, class: 'btn' 

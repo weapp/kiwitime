@@ -1,10 +1,20 @@
 %p#notice= notice
 
 .page-header
-  %h1
+  %h2
     = @project.name
     %small
-      = link_to 'Edit', edit_project_path(@project)
+      .btn-group.pull-right
+        %a.btn{href: edit_project_path(@project)}
+          Edit
+          %i.icon-edit
+        %a.btn{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_path(@project), rel: "nofollow"}
+          Delete
+          %i.icon-remove
+  
+
+
+
 
 %table
   %tr

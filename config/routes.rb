@@ -1,5 +1,8 @@
 Kiwitime::Application.routes.draw do
 
+  get "/projects/:project_id/tasks" => redirect("/projects/%{project_id}")
+  get "/projects/:project_id/tasks/:task_id/sittings" => redirect("/projects/%{project_id}/tasks/%{task_id}")
+
   resources :projects do
     resources :tasks do
       resources :sittings
