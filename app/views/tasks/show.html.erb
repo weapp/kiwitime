@@ -25,6 +25,8 @@
   <%= @task.finished %>
 </p>
 
+<%= link_to 'Sittings', project_task_sittings_path(@project, @task) %> |
+
 
 <%= link_to 'Edit', edit_project_task_path(@project, @task) %>
 <%= link_to 'Back', project_tasks_path %>

@@ -1,4 +1,4 @@
-<%= form_for(@sitting) do |f| %>
+<%= form_for([@project, @task, @sitting]) do |f| %>
   <% if @sitting.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@sitting.errors.count, "error") %> prohibited this sitting from being saved:</h2>
@@ -25,7 +25,7 @@
   </div>
   <div class="field">
     <%= f.label :end %><br />
-    <%= f.datetime_select :end %>
+    <%= f.datetime_select :end, :html => { :style => "border:1px solid #000" }%>
   </div>
   <div class="actions">
     <%= f.submit %>

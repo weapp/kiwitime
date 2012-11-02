@@ -1,8 +1,15 @@
 class SittingsController < ApplicationController
+  before_filter :get_task
+
+  def get_task
+    @project = Project.find(params[:project_id])
+    @task = Task.find(params[:task_id])
+  end
+
   # GET /sittings
   # GET /sittings.json
   def index
-    @sittings = Sitting.all
+    @sittings = @task.sittings
 
     respond_to do |format|
       format.html # index.html.erb
@@ -44,7 +51,7 @@ class SittingsController < ApplicationController
 
     respond_to do |format|
       if @sitting.save
-        format.html { redirect_to @sitting, notice: 'Sitting was successfully created.' }
+        format.html { redirect_to [@project, @task, @sitting], notice: 'Sitting was successfully created.' }
         format.json { render json: @sitting, status: :created, location: @sitting }
       else
         format.html { render action: "new" }
@@ -60,7 +67,7 @@ class SittingsController < ApplicationController
 
     respond_to do |format|
       if @sitting.update_attributes(params[:sitting])
-        format.html { redirect_to @sitting, notice: 'Sitting was successfully updated.' }
+        format.html { redirect_to [@project, @task, @sitting], notice: 'Sitting was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
