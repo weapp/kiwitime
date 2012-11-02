@@ -4,7 +4,7 @@
   %h2
     \#{@task.name}
     %small
-      (on #{@task.project.name})
+      (on #{@task.project && @task.project.name})
     %small
       .btn-group.pull-right
         %a.btn{href: edit_project_task_path(@project, @task)}
@@ -23,6 +23,7 @@
   %i.icon-time
   %b Time forecast:
   = @task.time_forecast
+  minutes
 %p
   %i.icon-check
   %b Finished:
@@ -35,14 +36,16 @@
   %table
     %tr
       %th User
+      %th Day
       %th Start
       %th End
       %th
     - @task.sittings.each do |sitting|
       %tr
         %td= sitting.user && sitting.user.name
-        %td= sitting.start
-        %td= sitting.end
+        %td= sitting.day
+        %td= sitting.start.strftime("%H:%M")
+        %td= sitting.end.strftime("%H:%M")
         =# %td= link_to 'Show', project_task_sitting_path(@project, @task, sitting)
         %td
           %a(href='#{project_task_sitting_path(@project, @task, sitting)}')

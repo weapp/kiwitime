@@ -3,6 +3,7 @@ rails new kiwitime
 rails g scaffold User name:string email:string
 
 rails g migration add_password_to_users encrypted_password:string
+rails g migration add_salt_to_users salt:string
 
 rails g scaffold Project name:string
 rails g scaffold Task name:string description:string time_forecast:integer project_id:integer finished:boolean
@@ -16,6 +17,7 @@ rails g migration add_day_to_sittings day:date start:time end:time
 rake db:migrate
 
 //rake db:rollback
+//rake db:test:prepare
 
 //rails destroy scaffold Micropost
 

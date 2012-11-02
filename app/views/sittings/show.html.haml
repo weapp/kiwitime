@@ -1,10 +1,14 @@
 %p#notice= notice
 %p
   %b User:
-  = @sitting.user_id
+  = @sitting.user.name
+%p
+  %b Project:
+  = @sitting.task.project.name
+  = @sitting.task.project.id
 %p
   %b Task:
-  = @sitting.task_id
+  = @sitting.task.name
 %p
   %b Day:
   = @sitting.day
@@ -17,6 +21,6 @@
     = @sitting.end.strftime("%H:%M")
   - else
     in progress
-= link_to 'Edit', edit_project_task_sitting_path(@sitting)
+= link_to 'Edit', edit_project_task_sitting_path(@task.project, @task, @sitting)
 |
 = link_to 'Back', project_task_sittings_path
