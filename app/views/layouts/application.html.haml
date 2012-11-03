@@ -17,7 +17,10 @@
           %ul.nav.pull-right
             %li
               -if signed_in?
-                %a{:href => singout_path} Sign out
+                %a{:href => singout_path}
+                  %div{style:'position:absolute;top:5px;left:-20px'}
+                    =gravatar_for current_user, size: 30
+                  Sign out
               -else
                 %a{:href => singin_path} Sing in
 
