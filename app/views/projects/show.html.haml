@@ -12,10 +12,15 @@
           Delete
           %i.icon-remove
   
+%style
+  \.row.muted .name{
+  t.ext-decoration: line-through;
+  opacity:0.9;
+  }
 
 -unless @project.tasks.empty?
   - @project.tasks.each do |task|
-    %div{class: task.finished && "row muted" || "row", style: task.finished && "opacity:.5;background:#FAFAFA"}
+    %div{class: task.finished && "row muted" || "row"}
       .span1
         .pull-right
           - task.users.uniq.each do |user|
@@ -32,11 +37,13 @@
         %a.btn.btn-small{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_path(@project, task), rel: "nofollow"}
           Delete
           %i.icon-remove
-      .span4
-        %a
-          = link_to task.name, project_task_path(@project, task)
+      .span4.name
+        %a{href:project_task_path(@project, task)}
+          =task.name
           %small (#{task.sittings.sum{|s| s.delta}} of #{task.time_forecast} minutes)
         %small= task.description
+        -if task.finished
+          %i.icon-ok{style:'opacity:0.3'}
     %br
       
 
