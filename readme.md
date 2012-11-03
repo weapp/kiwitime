@@ -28,3 +28,4 @@ rake db:migrate
 //annotate
 
 
+rails g controller Sessions new create destroy

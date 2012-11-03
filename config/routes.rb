@@ -1,5 +1,11 @@
 Kiwitime::Application.routes.draw do
 
+  get "sessions/new"
+
+  get "sessions/create"
+
+  get "sessions/destroy"
+
   get "/projects/:project_id/tasks" => redirect("/projects/%{project_id}")
   get "/projects/:project_id/tasks/:task_id/sittings" => redirect("/projects/%{project_id}/tasks/%{task_id}")
 
@@ -11,6 +17,7 @@ Kiwitime::Application.routes.draw do
 
   resources :users
 
+  match '/singup', to: 'users#new'
 
   root to: "projects#index"
 
