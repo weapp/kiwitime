@@ -8,13 +8,12 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  encrypted_password :string(255)
-#  add_salt_to_users  :string(255)
 #  salt               :string(255)
 #
 
 class User < ActiveRecord::Base
-  attr_accessor :password, :salt, :encrypted_password
-  attr_accessible :email, :name, :password, :password_confirmation
+  attr_accessor :password
+  attr_accessible :email, :name, :password, :password_confirmation, :salt, :encrypted_password
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 

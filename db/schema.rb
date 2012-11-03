@@ -45,7 +45,6 @@ ActiveRecord::Schema.define(:version => 20121103163513) do
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.string   "encrypted_password"
-    t.string   "add_salt_to_users"
     t.string   "salt"
   end
 

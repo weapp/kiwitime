@@ -2,7 +2,7 @@ rails new kiwitime
 
 rails g scaffold User name:string email:string
 
-rails g migration add_password_to_users encrypted_password:string add_salt_to_users salt:string
+rails g migration add_password_to_users encrypted_password:string salt:string
 rails g migration add_basic_password_to_users encrypted_password:string add_salt_to_users salt:string
 
 rails g scaffold Project name:string
