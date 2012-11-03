@@ -1,4 +1,3 @@
-%p#notice= notice
 .row
   .span1
     = gravatar_for @user
@@ -9,6 +8,8 @@
     %p
       %b Email:
       = @user.email
+
+=debug(@user)
 
 %br
 %a.btn{href:edit_user_path(@user)}

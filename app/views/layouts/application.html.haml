@@ -9,7 +9,6 @@
   %body
 
     .container
-
       .navbar
         .navbar-inner
           %a.brand{href:"/"}
@@ -22,7 +21,7 @@
               -else
                 %a{:href => singin_path} Sing in
 
-
+    .container
       .row
         .span3
           %nav.well
@@ -33,6 +32,9 @@
                 = link_to "Projects", projects_path
 
         .span9
+          %p#notice= notice
+          - flash.each do |k, f|
+            \#{k} : #{f}
           = yield
     %footer
       .container

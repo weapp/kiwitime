@@ -2,8 +2,8 @@ rails new kiwitime
 
 rails g scaffold User name:string email:string
 
-rails g migration add_password_to_users encrypted_password:string
-rails g migration add_salt_to_users salt:string
+rails g migration add_password_to_users encrypted_password:string add_salt_to_users salt:string
+rails g migration add_basic_password_to_users encrypted_password:string add_salt_to_users salt:string
 
 rails g scaffold Project name:string
 rails g scaffold Task name:string description:string time_forecast:integer project_id:integer finished:boolean
@@ -22,7 +22,7 @@ rake db:migrate
 
 //rails destroy scaffold Micropost
 
-//rails g migration add_email_uniqueness_index
+//rails g migration add_email_uniqueness_index_to_users
 
 //gem install annotate
 //annotate

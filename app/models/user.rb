@@ -2,11 +2,14 @@
 #
 # Table name: users
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  email      :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                 :integer          not null, primary key
+#  name               :string(255)
+#  email              :string(255)
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  encrypted_password :string(255)
+#  add_salt_to_users  :string(255)
+#  salt               :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -46,6 +49,12 @@ class User < ActiveRecord::Base
     def encrypt_password
       self.salt = make_salt if new_record?
       self.encrypted_password = encrypt(password)
+      puts "\n\n\n\n\n\n\n\n\n\n\n\n"
+      puts password
+      puts new_record?
+      puts salt
+      puts encrypted_password
+      puts "\n\n\n\n\n\n\n\n\n\n\n\n"
     end
 
     def encrypt(string)
