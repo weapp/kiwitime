@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-before_filter :authenticate, only: [:edit]
+  before_filter :authenticate, only: [:edit, :update]
+  before_filter :correct_user, only: [:edit, :update]
 
   # GET /users
   # GET /users.json
@@ -85,7 +86,12 @@ before_filter :authenticate, only: [:edit]
   end
 
   def authenticate
-      flash[:notice] = 'Please sign in'
-      redirect_to signin_path unless signed_in?
-    end
+      deny_access unless signed_in?
+  end
+
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to root_path unless current_user? @user
+  end
+
 end
