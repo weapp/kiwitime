@@ -5,6 +5,8 @@ rails g scaffold User name:string email:string
 rails g migration add_password_to_users encrypted_password:string salt:string
 rails g migration add_basic_password_to_users encrypted_password:string add_salt_to_users salt:string
 
+rails g migration add_admin_to_users admin:boolean
+
 rails g scaffold Project name:string
 rails g scaffold Task name:string description:string time_forecast:integer project_id:integer finished:boolean
 rails g scaffold Sitting user_id:integer task_id:integer start:datetime end:datetime
@@ -29,3 +31,7 @@ rake db:migrate
 
 
 rails g controller Sessions new create destroy
+
+
+rails c
+User.all.first.toggle!(:admin)

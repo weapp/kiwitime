@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       render 'new'
     else
       sign_in user
-      redirect_bacl_or user, flash: {notice: 'Welcome to kiwitime!'}
+      redirect_back_or user, flash: {notice: 'Welcome to kiwitime!'}
     end
   end
 

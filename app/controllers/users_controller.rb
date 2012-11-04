@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_filter :authenticate, only: [:edit, :update]
   before_filter :correct_user, only: [:edit, :update]
+  before_filter :admin_user, only: [:destroy]
 
   # GET /users
   # GET /users.json
@@ -38,7 +39,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
+    #@user = User.find(params[:id])
   end
 
   # POST /users
@@ -61,7 +62,7 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
-    @user = User.find(params[:id])
+    #@user = User.find(params[:id])
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
@@ -93,6 +94,13 @@ class UsersController < ApplicationController
   def correct_user
     @user = User.find(params[:id])
     redirect_to root_path unless current_user? @user
+  end
+
+  def admin_user
+    user = User.find(params[:id])
+    redirect_to root_path if !current_user.admin? || current_user?(user)
+      
+    end
   end
 
 end

@@ -30,7 +30,7 @@ module SessionsHelper
       redirect_to signin_path, notice: 'Please sign in'
   end
 
-  def redierct_back_or(default, options={})
+  def redirect_back_or(default, options={})
     redirect_to session[:return_to] || default, options
     clear_return_to
   end
