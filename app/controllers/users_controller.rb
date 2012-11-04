@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate, only: [:edit, :update]
+  before_filter :authenticate, except: [:new]
   before_filter :correct_user, only: [:edit, :update]
   before_filter :admin_user, only: [:destroy]
 
@@ -85,10 +85,6 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url }
       format.json { head :no_content }
     end
-  end
-
-  def authenticate
-      deny_access unless signed_in?
   end
 
   def correct_user

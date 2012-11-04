@@ -1,4 +1,5 @@
 class SittingsController < ApplicationController
+  before_filter :authenticate
   before_filter :get_task
 
   def get_task
@@ -47,7 +48,8 @@ class SittingsController < ApplicationController
   # POST /sittings
   # POST /sittings.json
   def create
-    @sitting = Sitting.new(params[:sitting])
+    @sitting = current_user.sittings.build(params[:sitting])
+    #@sitting = Sitting.new(params[:sitting])
 
     respond_to do |format|
       if @sitting.save

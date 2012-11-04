@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  before_filter :authenticate
   before_filter :get_project
 
   def get_project

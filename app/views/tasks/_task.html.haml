@@ -1,5 +1,6 @@
 %div
-  =task.name
+  %a{href:project_task_path(task.project, task)}
+    =task.name
   -if task.finished
     %i.icon-ok{style:'opacity:0.3'}
 
