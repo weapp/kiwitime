@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+before_filter :authenticate, only: [:edit]
+
   # GET /users
   # GET /users.json
   def index
@@ -81,4 +83,9 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def authenticate
+      flash[:notice] = 'Please sign in'
+      redirect_to signin_path unless signed_in?
+    end
 end
