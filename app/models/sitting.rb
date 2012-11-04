@@ -18,6 +18,11 @@ class Sitting < ActiveRecord::Base
   belongs_to :task
   belongs_to :user
 
+  validates :user_id, presence: true
+  validates :task_id, presence: true
+
+  default_scope :order => 'sittings.created_at DESC'
+
   def end_min
     self.end.hour * 60 + self.end.min
   end

@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
   attr_accessor :password
   attr_accessible :email, :name, :password, :password_confirmation, :salt, :encrypted_password
 
+  has_many :tasks,  :through => :sittings
+
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   validates :name, length: {maximum: 140},
@@ -49,12 +51,6 @@ class User < ActiveRecord::Base
     def encrypt_password
       self.salt = make_salt if new_record?
       self.encrypted_password = encrypt(password)
-      puts "\n\n\n\n\n\n\n\n\n\n\n\n"
-      puts password
-      puts new_record?
-      puts salt
-      puts encrypted_password
-      puts "\n\n\n\n\n\n\n\n\n\n\n\n"
     end
 
     def encrypt(string)

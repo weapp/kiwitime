@@ -78,7 +78,6 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
 
     respond_to do |format|
@@ -97,10 +96,8 @@ class UsersController < ApplicationController
   end
 
   def admin_user
-    user = User.find(params[:id])
-    redirect_to root_path if !current_user.admin? || current_user?(user)
-      
-    end
+    @user = User.find(params[:id])
+    redirect_to root_path if !current_user.admin? || current_user?(@user)
   end
 
 end
