@@ -12,6 +12,7 @@ gem 'omniauth-twitter'
 
 gem 'haml'
 gem 'simple_form'
+gem 'will_paginate'
 
 gem 'gravatar_image_tag'
 
