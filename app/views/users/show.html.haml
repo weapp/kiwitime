@@ -10,6 +10,16 @@
       = @user.email
 
 %br
+
+-if @tasks.empty?
+  %div
+    %em Lazy user.
+-else
+  %h4 User works in #{pluralize(@tasks.count, 'task')}:
+  =render @tasks
+  =will_paginate @tasks
+
+%br
 %a.btn{href:edit_user_path(@user)}
   Edit
 

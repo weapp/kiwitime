@@ -19,6 +19,10 @@
 
 %p
   %i.icon-time
+  %b Created:
+  \#{time_ago_in_words(@task.created_at)} ago.
+%p
+  %i.icon-time
   %b Time forecast:
   = @task.time_forecast
   minutes
@@ -38,22 +42,8 @@
       %th Start
       %th End
       %th
-    - @task.sittings.each do |sitting|
-      %tr
-        %td= sitting.user && sitting.user.name
-        %td= sitting.day
-        %td= sitting.start.strftime("%H:%M")
-        %td= sitting.end.strftime("%H:%M")
-        =# %td= link_to 'Show', project_task_sitting_path(@project, @task, sitting)
-        %td
-          %a(href='#{project_task_sitting_path(@project, @task, sitting)}')
-            %i.icon-eye-open
-          &nbsp;
-          %a(href='#{edit_project_task_sitting_path(@project, @task, sitting)}')
-            %i.icon-edit
-          &nbsp;
-          %a{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_sitting_path(@project, @task, sitting), rel: "nofollow"}
-            %i.icon-remove
+
+    =render @task.sittings
 
 
 %br

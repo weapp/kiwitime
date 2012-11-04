@@ -1,0 +1,11 @@
+%h1 Listing sittings
+%table
+  %tr
+    %th User
+    %th Task
+    %th Start
+    %th End
+    %th
+  = render @sittings
+%br
+= link_to 'New Sitting', new_project_task_sitting_path

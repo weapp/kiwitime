@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   attr_accessor :password
   attr_accessible :email, :name, :password, :password_confirmation, :salt, :encrypted_password
 
+  has_many :sittings
   has_many :tasks,  :through => :sittings
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
