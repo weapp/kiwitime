@@ -1,5 +1,9 @@
 %h1 Editing user
 = render 'form'
+
+= gravatar_for @user
+%a{href:'//gravatar.org/emails', target:'_blank'} Change Avatar
+%br
 = link_to 'Show', @user
 |
 \#{link_to 'Back', users_path}

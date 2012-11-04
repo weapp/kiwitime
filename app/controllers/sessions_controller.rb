@@ -10,8 +10,7 @@ class SessionsController < ApplicationController
       render 'new'
     else
       sign_in user
-      flash[:notice] = 'Welcome!'
-      redirect_to user
+      redirect_to user, flash: {notice: 'Welcome to kiwitime!'}
     end
   end
 
