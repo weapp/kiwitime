@@ -1,6 +1,47 @@
-%div
-  %a{href:project_task_path(task.project, task)}
-    =task.name
-  -if task.finished
-    %i.icon-ok{style:'opacity:0.3'}
+%div{class: task.finished && "row muted" || "row"}
+  .span1
+    .pull-right
+      - task.users.uniq.each do |user|
+        = gravatar_for user, size:20
 
+
+  .btn-group.pull-right
+
+    - unless task.finished
+      -if task.in_progress_for_user?(current_user)
+        %a.btn.btn-small.btn-danger{href:stop_project_task_path(task.project, task)}
+          %i.icon-stop.icon-white
+          stop
+      - else
+        %a.btn.btn-small.btn-success(href='#{start_project_task_path(task.project, task)}')
+          %i.icon-play.icon-white
+          start
+      %a.btn.btn-small.btn-inverse(href='#{finish_project_task_path(task.project, task)}')
+        %i.icon-check.icon-white
+        Finish Him!
+    /  .btn.btn-small.btn-link{style:'width:3px;padding:2px 0;background:#AAA'}
+    /    &nbsp;
+    /%a.btn.btn-small(href='#{project_task_path(@project, task)}/sittings/new')
+    /  New Sitting
+    /  %i.icon-plus
+
+
+    / %a.btn.btn-small.btn-warning(href='#{edit_project_task_path(@project, task)}')
+    /   /Edit
+    /   %i.icon-pencil
+    / =#%td= link_to "×", [@project, task], method: :delete, data: { confirm: 'Are you sure?' }
+    / &nbsp;
+    / %a.btn.btn-small.btn-danger{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_path(@project, task), rel: "nofollow"}
+    /   /Delete
+    /   %i.icon-remove
+
+
+
+  .span4.name
+    %a{href:project_task_path(task.project, task)}
+      =task.name
+      %small (#{task.sittings.sum{|s| s.delta}} of #{pluralize(task.time_scope, 'minute')})
+    %small= task.description
+    -if task.finished
+      %i.icon-ok{style:'opacity:0.3'}
+%br

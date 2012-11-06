@@ -25,4 +25,11 @@ class Task < ActiveRecord::Base
 
   default_scope :order => 'tasks.created_at DESC'
 
+  def in_progress?
+    sittings.any? { |sitting| sitting.in_progress? }
+  end
+
+  def in_progress_for_user?(user)
+    sittings.any? { |sitting| sitting.in_progress? && sitting.user == user}
+  end
 end

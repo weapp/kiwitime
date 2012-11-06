@@ -91,8 +91,34 @@ class TasksController < ApplicationController
   def finish
     @task = Task.find(params[:id])
     @task.finished = true
-    @task.sittings.each{|sitting| sitting.end}
     @task.save
-    redirect_to  [@project], notice: 'Task finished.'
+    @task.sittings.each do |sitting| 
+      if sitting.in_progress?
+        sitting.end = Time.now
+        sitting.save
+      end
+    end
+    redirect_to :back, notice: 'Task stopped and finished.'
+  end
+
+  def start
+    #@task = Task.find(params[:id])
+    #p = {"task_id"=>params[:id], "day(1i)"=>"2012", "day(2i)"=>"11", "day(3i)"=>"6", "start(1i)"=>"2012", "start(2i)"=>"11", "start(3i)"=>"6", "start(4i)"=>"20", "start(5i)"=>"36", "end(1i)"=>"1", "end(2i)"=>"1", "end(3i)"=>"1", "end(4i)"=>"", "end(5i)"=>""}
+    p = {"task_id"=>params[:id], day: Time.now, start:Time.now}
+    sitting = current_user.sittings.build({task_id: params[:id], start: Time.now, day: Time.now})
+    sitting.save
+    redirect_to :back, notice: 'Task started.'
+  end
+
+  def stop
+    @task = Task.find(params[:id])
+    @task.sittings.each do |sitting| 
+      if sitting.user == current_user && sitting.in_progress?
+        sitting.end = Time.now
+        sitting.save
+      end
+    end
+    @task.save
+    redirect_to :back, notice: 'Task stopped.'
   end
 end

@@ -3,12 +3,12 @@
     = @project.name
     %small
       .btn-group.pull-right
-        %a.btn{href: edit_project_path(@project)}
+        %a.btn.btn-warning{href: edit_project_path(@project)}
+          %i.icon-pencil.icon-white
           Edit
-          %i.icon-edit
-        %a.btn{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_path(@project), rel: "nofollow"}
+        %a.btn.btn-danger{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_path(@project), rel: "nofollow"}
+          %i.icon-remove.icon-white
           Delete
-          %i.icon-remove
   
 %style
   \.row.muted .name{
@@ -17,36 +17,7 @@
   }
 
 -unless @project.tasks.empty?
-  - @project.tasks.each do |task|
-    %div{class: task.finished && "row muted" || "row"}
-      .span1
-        .pull-right
-          - task.users.uniq.each do |user|
-            = gravatar_for user, size:20
-      .btn-group.pull-right
-        - unless task.finished
-          %a.btn.btn-small(href='#{finish_project_task_path(@project, task)}')
-            Finish Him!
-            %i.icon-check
-        %a.btn.btn-small(href='#{project_task_path(@project, task)}/sittings/new')
-          New Sitting
-          %i.icon-plus
-        %a.btn.btn-small(href='#{edit_project_task_path(@project, task)}')
-          /Edit
-          %i.icon-edit
-        =#%td= link_to "×", [@project, task], method: :delete, data: { confirm: 'Are you sure?' }
-        &nbsp;
-        %a.btn.btn-small{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_path(@project, task), rel: "nofollow"}
-          /Delete
-          %i.icon-remove
-      .span4.name
-        %a{href:project_task_path(@project, task)}
-          =task.name
-          %small (#{task.sittings.sum{|s| s.delta}} of #{pluralize(task.time_scope, 'minute')})
-        %small= task.description
-        -if task.finished
-          %i.icon-ok{style:'opacity:0.3'}
-    %br
+  =render @project.tasks
       
 
 %br
@@ -60,5 +31,5 @@
 %br
 
 
-=# link_to 'Tasks', project_tasks_path(@project)
-= link_to 'Back', projects_path, class: 'btn' 
+/= link_to 'Tasks', project_tasks_path(@project)
+/= link_to 'Back', projects_path, class: 'btn' 

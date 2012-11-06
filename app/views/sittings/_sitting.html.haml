@@ -1,15 +1,20 @@
-%tr
-  %td= sitting.user && sitting.user.name
-  %td= sitting.day
-  %td= sitting.start.strftime("%H:%M")
-  %td= (sitting.end.hour != 0  || sitting.end.min != 0 ? sitting.end.strftime("%H:%M") : 'in progress')
-  =# %td= link_to 'Show', project_task_sitting_path(@project, @task, sitting)
-  %td
-    /%a(href='#{project_task_sitting_path(@project, @task, sitting)}')
-    /  %i.icon-eye-open
-    /&nbsp;
-    %a(href='#{edit_project_task_sitting_path(@project, @task, sitting)}')
-      %i.icon-edit
-    &nbsp;
-    %a{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_sitting_path(@project, @task, sitting), rel: "nofollow"}
-      %i.icon-remove
+.row
+  .span2
+    =gravatar_for sitting.user, size: 20
+    %a{href:(user_path sitting.user)}= sitting.user && sitting.user.name
+  .span2
+    = sitting.day
+  .span1
+    = !sitting.start.nil? && sitting.start.strftime("%H:%M")
+  .span1
+    = ( sitting.in_progress? ? 'in progress' : sitting.end.strftime("%H:%M"))
+
+  .span3
+    .btn-group.pull-right
+      %a.btn.btn-small.btn-warning(href='#{edit_project_task_sitting_path(@project, @task, sitting)}')
+        %i.icon-pencil.icon-white
+        Edit
+      %a.btn.btn-small.btn-danger{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_sitting_path(@project, @task, sitting), rel: "nofollow"}
+        %i.icon-remove.icon-white
+        Delete
+%br

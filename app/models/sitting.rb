@@ -24,11 +24,16 @@ class Sitting < ActiveRecord::Base
   default_scope :order => 'sittings.created_at DESC'
 
   def end_min
-    self.end.hour * 60 + self.end.min
+    if self.end.nil? then 0 else self.end.hour * 60 + self.end.min end
   end
 
   def start_min
-    start.hour * 60 + start.min
+    if self.start.nil? then 0 else start.hour * 60 + start.min end
+  end
+
+
+  def in_progress?
+    self.end.nil? || end_min == 0
   end
   
   def delta

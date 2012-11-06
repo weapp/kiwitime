@@ -1,7 +1,9 @@
 %h2 Projects
-- @projects.each do |project|
-  %h4
-    = link_to project.name, project
+%ul.unstyled
+  - @projects.each do |project|
+    %li{style:'border-bottom:1px solid #F2F2F2'}
+      %h4
+        = link_to project.name, project, style: 'display:block;padding:5px 20px'
 
 
 

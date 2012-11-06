@@ -25,8 +25,9 @@
     <%= f.number_field :time_scope %> minutes
   </div>
   <div class="field">
-    <%= f.label :finished %>
-    <%= f.check_box :finished %>
+    <label class="checkbox">
+      <%= f.check_box :finished %> Finished
+    </label>
   </div>
   <div class="actions">
     <%= f.submit %>

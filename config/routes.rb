@@ -17,6 +17,8 @@ Kiwitime::Application.routes.draw do
       resources :sittings
       member do
         get 'finish'
+        get 'start'
+        get 'stop'
       end
     end
   end
