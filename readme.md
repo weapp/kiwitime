@@ -35,3 +35,14 @@ rails g controller Sessions new create destroy
 
 rails c
 User.all.first.toggle!(:admin)
+
+
+
+
+//capistrano
+capify .
+
+
+cap deploy:setup //estructura de directorio
+cap deploy:check //va bien?
+cap deploy		 //sube el codigo e inicia..

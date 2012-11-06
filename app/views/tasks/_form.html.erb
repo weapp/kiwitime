@@ -1,4 +1,5 @@
 <%= form_for([@project, @task]) do |f| %>
+  <%= f.hidden_field :project_id, value: params[:project_id] %>
   <% if @task.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
@@ -20,12 +21,8 @@
     <%= f.text_field :description %>
   </div>
   <div class="field">
-    <%= f.label :time_forecast %>
-    <%= f.number_field :time_forecast %>
-  </div>
-  <div class="field">
-    <%= f.label :project_id %>
-    <%= f.number_field :project_id %>
+    <%= f.label :time_scope %>
+    <%= f.number_field :time_scope %>
   </div>
   <div class="field">
     <%= f.label :finished %>
