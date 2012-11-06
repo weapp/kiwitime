@@ -1,8 +1,10 @@
 .page-header
   %h2
-    \#{@task.name}
-    %small
-      (on #{@task.project && @task.project.name})
+    %span{style:('text-decoration:line-through' if @task.finished)}
+      \#{@task.name}
+      /%i.icon-ok{style:'opacity:0.3'}
+      %small
+        (on #{@task.project && @task.project.name})
     %small
       .btn-group.pull-right
         %a.btn{href: edit_project_task_path(@project, @task)}
@@ -17,19 +19,14 @@
       .muted
         = @task.description
 
-%p
+%p-span4
   %i.icon-time
   %b Created:
   \#{time_ago_in_words(@task.created_at)} ago.
-%p
+%p.span4
   %i.icon-time
-  %b Time forecast:
-  = @task.time_forecast
-  minutes
-%p
-  %i.icon-check
-  %b Finished:
-  = @task.finished && "yes" || "no"
+  %b Time scope:
+  = pluralize(@task.time_scope, 'minute')
 
 =# link_to 'Sittings', project_task_sittings_path(@project, @task)
 

@@ -13,7 +13,7 @@
 #
 
 class Task < ActiveRecord::Base
-  attr_accessible :description, :finished, :name, :project_id, :time_forecast
+  attr_accessible :description, :finished, :name, :project_id, :time_scope
 
   belongs_to :project
 

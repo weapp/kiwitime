@@ -41,9 +41,10 @@
 
         .span9
           %p#notice= notice
-          - flash.each do |k, f|
-            \#{k} : #{f}
+          / - flash.each do |k, f|
+          /   \#{k} : #{f}
           = yield
+          
     %footer
       .container
         %hr

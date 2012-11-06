@@ -24,21 +24,25 @@
           - task.users.uniq.each do |user|
             = gravatar_for user, size:20
       .btn-group.pull-right
+        - unless task.finished
+          %a.btn.btn-small(href='#{finish_project_task_path(@project, task)}')
+            Finish Him!
+            %i.icon-check
         %a.btn.btn-small(href='#{project_task_path(@project, task)}/sittings/new')
           New Sitting
           %i.icon-plus
         %a.btn.btn-small(href='#{edit_project_task_path(@project, task)}')
-          Edit
+          /Edit
           %i.icon-edit
         =#%td= link_to "×", [@project, task], method: :delete, data: { confirm: 'Are you sure?' }
         &nbsp;
         %a.btn.btn-small{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_path(@project, task), rel: "nofollow"}
-          Delete
+          /Delete
           %i.icon-remove
       .span4.name
         %a{href:project_task_path(@project, task)}
           =task.name
-          %small (#{task.sittings.sum{|s| s.delta}} of #{task.time_forecast} minutes)
+          %small (#{task.sittings.sum{|s| s.delta}} of #{pluralize(task.time_scope, 'minute')})
         %small= task.description
         -if task.finished
           %i.icon-ok{style:'opacity:0.3'}

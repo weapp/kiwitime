@@ -53,7 +53,7 @@ class SittingsController < ApplicationController
 
     respond_to do |format|
       if @sitting.save
-        format.html { redirect_to [@project, @task, @sitting], notice: 'Sitting was successfully created.' }
+        format.html { redirect_to [@project, @task], notice: 'Sitting was successfully created.' }
         format.json { render json: @sitting, status: :created, location: @sitting }
       else
         format.html { render action: "new" }

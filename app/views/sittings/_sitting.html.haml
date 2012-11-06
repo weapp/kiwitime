@@ -2,12 +2,12 @@
   %td= sitting.user && sitting.user.name
   %td= sitting.day
   %td= sitting.start.strftime("%H:%M")
-  %td= sitting.end.strftime("%H:%M")
+  %td= (sitting.end.hour != 0  || sitting.end.min != 0 ? sitting.end.strftime("%H:%M") : 'in progress')
   =# %td= link_to 'Show', project_task_sitting_path(@project, @task, sitting)
   %td
-    %a(href='#{project_task_sitting_path(@project, @task, sitting)}')
-      %i.icon-eye-open
-    &nbsp;
+    /%a(href='#{project_task_sitting_path(@project, @task, sitting)}')
+    /  %i.icon-eye-open
+    /&nbsp;
     %a(href='#{edit_project_task_sitting_path(@project, @task, sitting)}')
       %i.icon-edit
     &nbsp;

@@ -51,7 +51,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to [@project, @task], notice: 'Task was successfully created.' }
+        format.html { redirect_to [@project], notice: 'Task was successfully created.' }
         format.json { render json: @task, status: :created, location: @task }
       else
         format.html { render action: "new" }
@@ -86,5 +86,13 @@ class TasksController < ApplicationController
       format.html { redirect_to project_tasks_url }
       format.json { head :no_content }
     end
+  end
+
+  def finish
+    @task = Task.find(params[:id])
+    @task.finished = true
+    @task.sittings.each{|sitting| sitting.end}
+    @task.save
+    redirect_to  [@project], notice: 'Task finished.'
   end
 end
