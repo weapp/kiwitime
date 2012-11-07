@@ -1,12 +1,5 @@
 .page-header
   %h2
-    %span{style:('text-decoration:line-through' if @task.finished)}
-      \#{@task.name}
-      /%i.icon-ok{style:'opacity:0.3'}
-      %small
-        ( on 
-        %a{href:project_tasks_path}=@task.project && @task.project.name 
-        )
     %small
       .btn-group.pull-right
         %a.btn.btn-warning{href: edit_project_task_path(@project, @task)}
@@ -15,6 +8,13 @@
         %a.btn.btn-danger{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_path(@project, @task), rel: "nofollow"}
           %i.icon-remove.icon-white
           Delete
+    %span{class:('completedtask' if @task.finished)}
+      \#{@task.name}
+      /%i.icon-ok{style:'opacity:0.3'}
+      %small
+        ( on 
+        %a{href:project_tasks_path}=@task.project && @task.project.name 
+        )
 
 
     %small

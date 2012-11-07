@@ -17,6 +17,7 @@ Kiwitime::Application.routes.draw do
       resources :sittings
       member do
         get 'finish'
+        get 'reopen'
         get 'start'
         get 'stop'
       end

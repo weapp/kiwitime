@@ -2,6 +2,14 @@
 %ul.unstyled
   - @projects.each do |project|
     %li{style:'border-bottom:1px solid #F2F2F2'}
+      .pull-right
+        .progress.span3
+          .bar.bar-success{style:"width: #{(project.tasks.collect{|t| t.finished}).count(true) * 100 / project.tasks.count}%;"}
+          /.bar.bar-warning{style:"width: 20%;"}
+        .span1
+          \#{(project.tasks.collect{|t| t.finished}).count(true)}
+          \/
+          = project.tasks.count
       %h4
         = link_to project.name, project, style: 'display:block;padding:5px 20px'
 

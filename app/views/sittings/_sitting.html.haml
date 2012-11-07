@@ -6,15 +6,15 @@
     = sitting.day
   .span1
     = !sitting.start.nil? && sitting.start.strftime("%H:%M")
-  .span1
+  .span2
     = ( sitting.in_progress? ? 'in progress' : sitting.end.strftime("%H:%M"))
 
-  .span3
+  .span2
     .btn-group.pull-right
-      %a.btn.btn-small.btn-warning(href='#{edit_project_task_sitting_path(@project, @task, sitting)}')
+      %a.btn.btn-warning(href='#{edit_project_task_sitting_path(@project, @task, sitting)}')
         %i.icon-pencil.icon-white
         Edit
-      %a.btn.btn-small.btn-danger{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_sitting_path(@project, @task, sitting), rel: "nofollow"}
+      %a.btn.btn-danger{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_sitting_path(@project, @task, sitting), rel: "nofollow"}
         %i.icon-remove.icon-white
         Delete
 %br

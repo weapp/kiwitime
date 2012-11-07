@@ -1,4 +1,13 @@
 .row
+  -if current_user.admin? || current_user?(@user)
+    .btn-group.pull-right
+      %a.btn.btn-warning{href:edit_user_path(@user)}
+        %if.icon-pencil.icon-white
+        Edit
+      %a.btn.btn-danger{href:user_path(@user), 'data-confirm' => 'Are you sure?', 'data-method' => 'delete', rel: 'nofollow' }
+        %if.icon-pencil.icon-white
+        Destroy
+
   .span1
     = gravatar_for @user
   .span7
@@ -8,6 +17,10 @@
     %p
       %b Email:
       = @user.email
+    -if current_user.admin?
+      %p
+        %b admin:
+        = @user.admin?
 
 %br
 
@@ -18,11 +31,4 @@
   %h4 User works in #{pluralize((@tasks.uniq.collect.count), 'task')}:
   =render @tasks.uniq
   =will_paginate @tasks
-
-%br
-%a.btn{href:edit_user_path(@user)}
-  Edit
-
-%a.btn{href:users_path}
-  Back
 

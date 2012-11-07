@@ -101,6 +101,13 @@ class TasksController < ApplicationController
     redirect_to :back, notice: 'Task stopped and finished.'
   end
 
+  def reopen
+    @task = Task.find(params[:id])
+    @task.finished = false
+    @task.save
+    redirect_to :back, notice: 'Task is re-openend'
+  end
+
   def start
     #@task = Task.find(params[:id])
     #p = {"task_id"=>params[:id], "day(1i)"=>"2012", "day(2i)"=>"11", "day(3i)"=>"6", "start(1i)"=>"2012", "start(2i)"=>"11", "start(3i)"=>"6", "start(4i)"=>"20", "start(5i)"=>"36", "end(1i)"=>"1", "end(2i)"=>"1", "end(3i)"=>"1", "end(4i)"=>"", "end(5i)"=>""}
