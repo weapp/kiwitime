@@ -10,12 +10,6 @@
           %i.icon-remove.icon-white
           Delete
   
-%style
-  \.row.muted .name{
-  t.ext-decoration: line-through;
-  opacity:0.9;
-  }
-
 -unless @project.tasks.empty?
   =render @project.tasks
       

@@ -41,3 +41,32 @@ a:visited{
 	color: #08C !important;
 }
 */
+
+
+.btn{font-family:georgia}
+
+.completedtask{text-decoration:line-through}
+
+.navbar{
+	a{font-family:georgia}
+	.gravatar{position:absolute;top:5px;left:-25px}
+}
+
+
+.projects-list {
+	.projects-project{
+		border-bottom:1px solid #F2F2F2;
+
+		.projects-project-name{
+			display:block;
+			padding:5px 20px;
+		}
+	}
+}
+
+.icon-grey{opacity:.3}
+
+
+.row.muted .name{
+	opacity:0.9;
+}

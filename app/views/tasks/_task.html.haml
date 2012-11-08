@@ -47,5 +47,5 @@
       %small (#{task.sittings.sum{|s| s.delta}} of #{pluralize(task.time_scope, 'minute')})
     %small= task.description
     -if task.finished
-      %i.icon-ok{style:'opacity:0.3'}
+      %i.icon-ok.icon-gray
 %br
