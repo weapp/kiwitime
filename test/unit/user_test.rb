@@ -10,6 +10,8 @@
 #  encrypted_password :string(255)
 #  salt               :string(255)
 #  admin              :boolean          default(FALSE)
+#  provider           :string(255)
+#  uid                :string(255)
 #
 
 require 'test_helper'

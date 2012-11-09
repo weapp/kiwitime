@@ -10,6 +10,7 @@
 #  day        :date
 #  start      :time
 #  end        :time
+#  message    :string(255)
 #
 
 class Sitting < ActiveRecord::Base

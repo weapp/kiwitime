@@ -16,7 +16,7 @@ rails g migration add_day_to_sittings day:date start:time end:time
 
 //rails g scaffold Micropost content:string user_id:integer
 
-rake db:migrate
+rake db:migrate	
 
 //rake db:rollback
 //rake db:reset
