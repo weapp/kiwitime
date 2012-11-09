@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_filter :authenticate
+  layout false, only: :report
 
   # GET /projects
   # GET /projects.json
@@ -19,8 +20,17 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @project }
+      #format.json { render json: @project }
+
+      format.json do
+        render :json => @project.to_json(include: {tasks: {include: { sittings: { include: { user: {} } } }}})
+      end
+
     end
+  end
+
+  def report
+    show
   end
 
   # GET /projects/new

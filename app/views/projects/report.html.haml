@@ -1,0 +1,28 @@
+%style
+  \.list{margin:1ex 1.5em;padding:1ex .5em;border-left:.2em solid whiteSmoke;background:rgba(220,240,160,.5)}
+.page-header
+  %h1=@project.name
+  %div
+    - @project.tasks.each do |task|
+      -unless task.delta == 0
+        %header
+          %h2 
+            %b
+              #{task.name}
+            (#{pluralize(task.delta, 'minutes')})
+          %div.list
+            -unless task.description.empty?
+              %b
+                =task.description
+            %div.list
+              - task.sittings.each do |sitting|
+                -if sitting.delta > 0
+                  %div
+                    %b
+                      #{sitting.message}: 
+                    #{pluralize(sitting.delta, 'minutes')}
+%hr
+%b
+  Total time:
+=pluralize(@project.delta/60, 'hour')
+=pluralize(@project.delta%60, 'minute')

@@ -11,4 +11,8 @@
 class Project < ActiveRecord::Base
   attr_accessible :name
   has_many :tasks, dependent: :destroy
+
+  def delta
+    tasks.sum{|task| task.delta}
+  end
 end
