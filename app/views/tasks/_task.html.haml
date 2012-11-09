@@ -13,9 +13,13 @@
         Re-open
     - else
       -if task.in_progress_for_user?(current_user)
-        %a.btn.btn-danger{href:stop_project_task_path(task.project, task)}
-          %i.icon-stop.icon-white
-          stop
+        
+        %form{action: stop_project_task_path(task.project, task)}
+          .input-append
+            %input#appendedInputButton.span2{type: "text", name:"message"}
+              %button.btn.btn-danger{:type => "submit"}
+                %i.icon-stop.icon-white
+                stop
       - else
         %a.btn.btn-success(href='#{start_project_task_path(task.project, task)}')
           %i.icon-play.icon-white

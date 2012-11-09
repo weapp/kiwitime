@@ -40,7 +40,10 @@ class Sitting < ActiveRecord::Base
     if end_min == 0 
       0
     else
-      end_min - start_min
+      r = end_min - start_min
+      #previene errores cuando hay un sitting a media noche
+      r += (24 * 60) if r < 0 
+      r
     end
   end
 end
