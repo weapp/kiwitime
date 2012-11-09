@@ -122,6 +122,7 @@ class TasksController < ApplicationController
     @task.sittings.each do |sitting| 
       if sitting.user == current_user && sitting.in_progress?
         sitting.end = Time.now
+        sitting.message = params[:message]
         sitting.save
       end
     end
