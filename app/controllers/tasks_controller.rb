@@ -20,7 +20,7 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
-    @task = Task.find(params[:id])
+    @task = Task.includes(:sittings).find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -122,6 +122,7 @@ class TasksController < ApplicationController
     @task.sittings.each do |sitting| 
       if sitting.user == current_user && sitting.in_progress?
         sitting.end = Time.now
+        sitting.message = params[:message]
         sitting.save
       end
     end

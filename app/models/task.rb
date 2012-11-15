@@ -32,4 +32,8 @@ class Task < ActiveRecord::Base
   def in_progress_for_user?(user)
     sittings.any? { |sitting| sitting.in_progress? && sitting.user == user}
   end
+
+  def delta
+    sittings.sum{|sitting| sitting.delta}
+  end
 end

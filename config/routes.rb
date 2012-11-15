@@ -22,6 +22,10 @@ Kiwitime::Application.routes.draw do
         get 'stop'
       end
     end
+
+    member do
+      get 'report'
+    end
   end
 
   root to: "projects#index"

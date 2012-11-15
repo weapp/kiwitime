@@ -17,4 +17,9 @@
       %a.btn.btn-danger{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_sitting_path(@project, @task, sitting), rel: "nofollow"}
         %i.icon-remove.icon-white
         Delete
+.row
+  .span6
+    Message:
+    %span.muted
+      = sitting.message
 %br
