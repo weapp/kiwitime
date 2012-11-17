@@ -14,7 +14,8 @@
 #
 
 class Sitting < ActiveRecord::Base
-  attr_accessible :end, :start, :task_id, :user_id, :day
+  attr_accessor :message
+  attr_accessible :end, :start, :task_id, :user_id, :day, :message
 
   belongs_to :task
   belongs_to :user
