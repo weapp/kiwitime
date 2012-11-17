@@ -28,7 +28,7 @@
   %div
     %em Lazy user.
 -else
-  %h4 User works in #{pluralize((@tasks.uniq.collect.count), 'task')}:
+  %h4 #{@user.name} works in #{pluralize((@tasks.uniq.collect.count), 'task')}:
   =render @tasks.uniq
   =will_paginate @tasks
 
