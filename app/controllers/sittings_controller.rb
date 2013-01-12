@@ -1,16 +1,12 @@
 class SittingsController < ApplicationController
-  before_filter :get_task
+  load_and_authorize_resource :project
+  load_and_authorize_resource :task, :through => :project
+  load_and_authorize_resource :sitting, :through => :task
 
-  def get_task
-    @project = Project.find(params[:project_id])
-    @task = Task.find(params[:task_id])
-  end
 
   # GET /sittings
   # GET /sittings.json
   def index
-    @sittings = @task.sittings
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @sittings }
@@ -20,8 +16,6 @@ class SittingsController < ApplicationController
   # GET /sittings/1
   # GET /sittings/1.json
   def show
-    @sitting = Sitting.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @sitting }
@@ -31,8 +25,6 @@ class SittingsController < ApplicationController
   # GET /sittings/new
   # GET /sittings/new.json
   def new
-    @sitting = Sitting.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @sitting }
@@ -41,14 +33,14 @@ class SittingsController < ApplicationController
 
   # GET /sittings/1/edit
   def edit
-    @sitting = Sitting.find(params[:id])
   end
 
   # POST /sittings
   # POST /sittings.json
   def create
-    @sitting = current_user.sittings.build(params[:sitting])
+    #@sitting = current_user.sittings.build(params[:sitting])
     #@sitting = Sitting.new(params[:sitting])
+    @sitting.user = current_user
 
     respond_to do |format|
       if @sitting.save
@@ -64,8 +56,6 @@ class SittingsController < ApplicationController
   # PUT /sittings/1
   # PUT /sittings/1.json
   def update
-    @sitting = Sitting.find(params[:id])
-
     respond_to do |format|
       if @sitting.update_attributes(params[:sitting])
         format.html { redirect_to [@project, @task], notice: 'Sitting was successfully updated.' }
@@ -80,7 +70,6 @@ class SittingsController < ApplicationController
   # DELETE /sittings/1
   # DELETE /sittings/1.json
   def destroy
-    @sitting = Sitting.find(params[:id])
     @sitting.destroy
 
     respond_to do |format|

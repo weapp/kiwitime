@@ -8,7 +8,6 @@
         %ul
           - @sitting.errors.full_messages.each do |msg|
             %li= msg
-    = f.hidden_field :task_id, value:params[:task_id]
     .field
       = f.label :day
       = f.date_select :day
