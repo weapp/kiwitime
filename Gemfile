@@ -17,6 +17,7 @@ gem 'simple_form'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 gem 'friendly_id'
+gem "acts_as_list"
 
 gem 'gravatar_image_tag'
 

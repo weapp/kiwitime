@@ -66,6 +66,12 @@ a:visited{
 
 .icon-grey{opacity:.3}
 
+.task.row{
+	margin:1.5ex 0;
+	position:relative;
+}
+
+.handle{position:absolute;left:-25px;}
 
 .row.muted .name{
 	opacity:0.9;

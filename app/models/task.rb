@@ -13,6 +13,8 @@
 #
 
 class Task < ActiveRecord::Base
+  acts_as_list
+
   attr_accessible :description, :finished, :name, :project_id, :time_scope
 
   belongs_to :project
@@ -23,7 +25,7 @@ class Task < ActiveRecord::Base
 
   validates :project_id, presence: true
 
-  default_scope :order => 'tasks.created_at DESC'
+  default_scope :order => 'tasks.position ASC'
 
   def in_progress?
     sittings.any? { |sitting| sitting.in_progress? }
@@ -35,5 +37,9 @@ class Task < ActiveRecord::Base
 
   def delta
     sittings.sum{|sitting| sitting.delta}
+  end
+
+  def finish_at
+    finished && (sittings.collect{|s| s.day}.max || updated_at.to_date)
   end
 end

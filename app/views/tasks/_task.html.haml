@@ -1,4 +1,7 @@
-%div{class: task.finished && "row muted" || "row"}
+= content_tag_for :div, task, class: task.finished ? "task row muted" : "task row" do
+  .span1.handle
+    .icon-resize-vertical
+  - #%div{class: task.finished && "row muted" || "row"}
   .span1
     .pull-right
       - task.users.uniq.each do |user|
@@ -50,6 +53,3 @@
     %small= task.description
     -if task.finished
       %i.icon-ok.icon-gray
-
-
-%br

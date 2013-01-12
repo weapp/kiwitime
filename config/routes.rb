@@ -23,6 +23,7 @@ Kiwitime::Application.routes.draw do
 
   resources :projects, path: 'p' do
     resources :tasks do
+      post :sort, on: :collection
       resources :sittings
       member do
         get 'finish'

@@ -9,6 +9,20 @@ class TasksController < ApplicationController
     end
   end
 
+  def sort
+    @tasks = Task.all
+    @tasks.each do |task|
+      index = params['task'].index(task.id.to_s)
+      if index
+        task.position = params['task'].index(task.id.to_s) + 1
+        task.save
+      end 
+    end
+
+    render :nothing => true
+  end
+
+
   # GET /tasks/1
   # GET /tasks/1.json
   def show
