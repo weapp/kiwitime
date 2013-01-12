@@ -9,8 +9,8 @@ class Ability
     if user.admin?
       can :manage, :all
     elsif !user.new_record?
-      can :read, :all
       can :manage, User, :id => user.id
+      can :read, :all
       can :manage, [Project, Task, Sitting]
     else
       #can :manage, :all

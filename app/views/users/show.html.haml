@@ -30,5 +30,4 @@
 -else
   %h4 #{@user.name} works in #{pluralize((@tasks.uniq.collect.count), 'task')}:
   =render @tasks.uniq
-  =will_paginate @tasks
-
+  =will_paginate @tasks, :renderer => BootstrapPagination::Rails

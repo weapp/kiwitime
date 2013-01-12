@@ -15,10 +15,12 @@ gem 'cancan'
 gem 'haml'
 gem 'simple_form'
 gem 'will_paginate'
+gem 'will_paginate-bootstrap'
+gem 'friendly_id'
 
 gem 'gravatar_image_tag'
 
-# Gems used only for assets and not required
+# Gems Used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

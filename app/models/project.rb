@@ -9,6 +9,9 @@
 #
 
 class Project < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name
+
   attr_accessible :name
   has_many :tasks, dependent: :destroy
 

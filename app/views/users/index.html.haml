@@ -11,7 +11,7 @@
         |
         = link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
 
-= will_paginate
+= will_paginate @collection, :renderer => BootstrapPagination::Rails
 
 .pull-right
   %a(href='#{new_user_path}' class='btn btn-primary') New User 
