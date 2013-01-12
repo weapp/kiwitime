@@ -1,6 +1,11 @@
 Kiwitime::Application.routes.draw do
 
-  devise_for :users
+  devise_scope :user do
+    get 'users/auth/:provider' => 'users/omniauth_callbacks#passthru'
+  end
+
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+
 
   get "/p/:project_id/tasks" => redirect("/p/%{project_id}")
   get "/p/:project_id/tasks/:task_id/sittings" => redirect("/p/%{project_id}/tasks/%{task_id}")

@@ -9,7 +9,7 @@ gem 'sqlite3'
 
 gem 'devise'
 gem 'omniauth'
-gem 'omniauth-twitter'
+gem 'omniauth-google-oauth2'
 gem 'cancan'
 
 gem 'haml'

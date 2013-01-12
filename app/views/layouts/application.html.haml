@@ -29,9 +29,10 @@
               %li
                 = link_to "Sign up", new_user_registration_path
               %li
-                %a or 
-              %li
                 %a{:href => new_user_session_path} Sign in
+              %li
+                = link_to "Sign up/in with Google", user_omniauth_authorize_path(:google_oauth2)
+
 
     .container
       .row

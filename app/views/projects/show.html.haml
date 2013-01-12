@@ -2,13 +2,16 @@
   %h2
     = @project.name
     %small
-      .btn-group.pull-right
-        %a.btn.btn-warning{href: edit_project_path(@project)}
-          %i.icon-pencil.icon-white
-          Edit
-        %a.btn.btn-danger{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_path(@project), rel: "nofollow"}
-          %i.icon-remove.icon-white
-          Delete
+      .pull-right
+        -if can? :report, @project
+          %a{href:report_project_path(@project, @task), class:'btn', target:"_blank"} Report
+        .btn-group
+          %a.btn.btn-warning{href: edit_project_path(@project)}
+            %i.icon-pencil.icon-white
+            Edit
+          %a.btn.btn-danger{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_path(@project), rel: "nofollow"}
+            %i.icon-remove.icon-white
+            Delete
   
 -unless @project.tasks.empty?
   =render @project.tasks
@@ -17,14 +20,6 @@
 %br
 .pull-right
   -if can? :create, @project.tasks.build
-    %a(href='#{params[:id]}/tasks/new' class='btn btn-primary') New Task 
-%br
-%br
-=# link_to 'New Task', new_project_task_path
+    %a{href:new_project_task_path(@project), class:'btn btn-primary'} New Task 
 
-
-%br
-
-
-/= link_to 'Tasks', project_tasks_path(@project)
-/= link_to 'Back', projects_path, class: 'btn' 
+= link_to 'Back', projects_path, class: 'btn' 

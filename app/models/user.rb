@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :username, :email, :password, :password_confirmation, :remember_me, :provider, :uid
@@ -32,4 +32,38 @@ class User < ActiveRecord::Base
   def to_s
     name || email
   end
+
+  def self.find_for_oatuh_uid(auth)
+    User.where(provider: auth.provider, uid: auth.uid).first
+  end
+
+  def self.find_for_oauth_mail(auth)
+    user = User.where(email: auth.info.email).first
+    if user
+      user.update_attributes(provider: auth.provider, uid: auth.uid)
+      user.save
+    end
+    user
+  end
+
+  def self.find_for_google_oauth(auth, signed_in_resource=nil)
+    user = User.find_for_oatuh_uid(auth) || User.find_for_oauth_mail(auth)
+    user ||= User.create(
+                         name: auth.info.name,
+                         provider: auth.provider,
+                         uid: auth.uid,
+                         email: auth.info.email,
+                         password: Devise.friendly_token[0,20]
+                         )
+  end
+
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.oauth_data"]
+        user.email = data["email"] if user.email.blank?
+        user.name = (data["name"]) if user.username.blank?
+      end
+    end
+  end
+
 end
