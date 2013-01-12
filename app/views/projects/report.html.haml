@@ -1,28 +1,38 @@
 %style
-  \.list{margin:1ex 1.5em;padding:1ex .5em;border-left:.2em solid whiteSmoke;background:rgba(220,240,160,.5)}
-.page-header
-  %h1=@project.name
-  %div
-    - @project.tasks.each do |task|
-      -unless task.delta == 0
-        %header
-          %h2 
-            %b
-              #{task.name}
-            (#{pluralize(task.delta, 'minutes')})
-          %div.list
-            -unless task.description.empty?
+  \body{width:45em;margin:auto;background:#EEE;font-family:georgia}
+  \.list{margin:1ex 1.5em;padding:1ex .5em;border-left:.2em solid whiteSmoke:rgba(220,240,160,.5)}
+  \.container{background:white;color:black;padding:2ex 2em;margin:1em 0;}
+  \h2{border-bottom:1px solid #DDD}
+  \h1{text-align:center;margin-bottom:2em}
+  \.sitting:after{content:":"}
+  \.sitting:empty:after{content:""}
+  \.footer{background:#F5F5F5; padding:2ex 1em;text-align:right}
+
+
+.container
+  .page-header
+    %h1=@project.name
+    %div
+      - @project.tasks.each do |task|
+        -unless task.delta == 0
+          %header
+            %h2 
               %b
-                =task.description
-            %div.list
-              - task.sittings.each do |sitting|
-                -if sitting.delta > 0
-                  %div
-                    %b
-                      #{sitting.message}: 
-                    #{pluralize(sitting.delta, 'minutes')}
-%hr
-%b
-  Total time:
-=pluralize(@project.delta/60, 'hour')
-=pluralize(@project.delta%60, 'minute')
+                #{task.name}
+              (#{pluralize(task.delta, 'minute')})
+            %div
+              -unless task.description.empty?
+                %b
+                  =task.description
+              %div.list
+                - task.sittings.each do |sitting|
+                  -if sitting.delta > 0
+                    %div
+                      %b.sitting #{sitting.message}
+                      #{pluralize(sitting.delta, 'minute')}
+  %br
+  .footer
+    %b
+      Total time:
+    =pluralize(@project.delta/60, 'hour')
+    =pluralize(@project.delta%60, 'minute')

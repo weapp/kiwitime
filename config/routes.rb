@@ -1,15 +1,19 @@
 Kiwitime::Application.routes.draw do
 
+  devise_for :users
 
   get "/p/:project_id/tasks" => redirect("/p/%{project_id}")
   get "/p/:project_id/tasks/:task_id/sittings" => redirect("/p/%{project_id}/tasks/%{task_id}")
 
-  resources :users, path: 'u'
-  resources :sessions, only: [:new, :create, :destroy]
+  resources :users, path: 'u' do
+    get 'page/:page' => :index, on: :collection
+  end
 
-  match '/signin', to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy'
-  match '/signup', to: 'users#new'
+  #resources :sessions, only: [:new, :create, :destroy]
+
+  #match '/signin', to: 'sessions#new'
+  #match '/signout', to: 'sessions#destroy'
+  #match '/signup', to: 'users#new'
 
 
   resources :projects, path: 'p' do
@@ -28,7 +32,15 @@ Kiwitime::Application.routes.draw do
     end
   end
 
-  root to: "projects#index"
+
+  authenticated do
+    root to: "projects#index"
+  end
+
+  devise_scope :user do
+    root :to => "devise/sessions#new"
+  end
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,8 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate, except: [:new]
-  #before_filter :correct_user, only: [:edit, :update]
-  #before_filter :admin_user, only: [:destroy]
-  before_filter :admin_user, only: [:destroy, :edit, :update]
+  load_and_authorize_resource
 
   # GET /users
   # GET /users.json
@@ -88,14 +85,16 @@ class UsersController < ApplicationController
     end
   end
 
-  def correct_user
-    @user = User.find(params[:id])
-    redirect_to root_path unless current_user? @user
+ 
+   def update_password
+    @user = User.find(current_user.id)
+    if @user.update_attributes(params[:user])
+      # Sign in the user by passing validation in case his password changed
+      sign_in @user, :bypass => true
+      redirect_to root_path
+    else
+      render "edit"
+    end
   end
-
-  def admin_user
-    @user = User.find(params[:id])
-    redirect_to root_path unless (current_user.admin? || current_user?(@user))
-  end
-
+  
 end

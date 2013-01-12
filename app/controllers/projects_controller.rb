@@ -1,5 +1,7 @@
 class ProjectsController < ApplicationController
-  before_filter :authenticate
+  load_and_authorize_resource
+
+  respond_to :html, :json
   layout false, only: :report
 
   # GET /projects
@@ -16,17 +18,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @project = Project.includes(tasks: {sittings: {user: {}}}).find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      #format.json { render json: @project }
-
-      format.json do
-        render :json => @project.to_json(include: {tasks: {include: { sittings: { include: { user: {} } } }}})
-      end
-
-    end
+    respond_with(@project)
   end
 
   def report

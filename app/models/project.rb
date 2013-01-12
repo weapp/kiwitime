@@ -15,4 +15,17 @@ class Project < ActiveRecord::Base
   def delta
     tasks.sum{|task| task.delta}
   end
+
+  def serializable_hash(options={})
+    options = { 
+      include: {
+        tasks: {
+          sittings: {
+            user: {}
+          }
+        }
+      }
+    }.update(options)
+    super(options)
+  end
 end

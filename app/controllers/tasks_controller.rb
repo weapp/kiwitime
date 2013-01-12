@@ -1,16 +1,8 @@
 class TasksController < ApplicationController
-  before_filter :authenticate
-  before_filter :get_project
+  load_and_authorize_resource :project
+  load_and_authorize_resource :task, :through => :project
 
-  def get_project
-    @project = Project.find(params[:project_id])
-  end
-
-  # GET /tasks
-  # GET /tasks.json
   def index
-    @tasks = @project.tasks
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @tasks }

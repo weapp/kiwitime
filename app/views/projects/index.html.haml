@@ -3,9 +3,9 @@
   - @projects.each do |project|
     %li.projects-project
       .pull-right
-        .progress.span3
+        .progress.span4
           .bar.bar-success{style:"width: #{(project.tasks.collect{|t| t.finished}).count(true) * 100 / project.tasks.count}%;"}
-          /.bar.bar-warning{style:"width: 20%;"}
+          .bar.bar-warning{style:"width: #{(project.tasks.collect{|t| t.in_progress?}).count(true) * 100 / project.tasks.count}%;"}
         .span1
           \#{(project.tasks.collect{|t| t.finished}).count(true)}
           \/

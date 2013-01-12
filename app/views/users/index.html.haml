@@ -1,24 +1,15 @@
-%table
-
-  %tr
-    %th
-    %th Name
-    -if current_user && current_user.admin?
-      %th Email
-      %th
-      %th
-
+.list
   - @users.each do |user|
-    %tr
-      %td
-        = gravatar_for user
-      %td
-        %a{href:user_path(user)}
-          = user.name
-      -if current_user && current_user.admin?
-        %td= user.email
-        %td= link_to 'Edit', edit_user_path(user)
-        %td= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
+    .item
+      = gravatar_for user
+
+      %a{href:user_path(user)}
+        = user
+      -if can? :manage, user
+        ="<#{user.email}>"
+        = link_to 'Edit', edit_user_path(user)
+        |
+        = link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
 
 = will_paginate
 

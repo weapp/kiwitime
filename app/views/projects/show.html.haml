@@ -16,7 +16,8 @@
 
 %br
 .pull-right
-  %a(href='#{params[:id]}/tasks/new' class='btn btn-primary') New Task 
+  -if can? :create, @project.tasks.build
+    %a(href='#{params[:id]}/tasks/new' class='btn btn-primary') New Task 
 %br
 %br
 =# link_to 'New Task', new_project_task_path

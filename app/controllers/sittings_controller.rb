@@ -1,5 +1,4 @@
 class SittingsController < ApplicationController
-  before_filter :authenticate
   before_filter :get_task
 
   def get_task

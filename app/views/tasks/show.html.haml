@@ -50,7 +50,8 @@
 
 %br
 .pull-right
-  %a(href='#{params[:id]}/sittings/new' class='btn btn-primary') New Sitting
+  -if can? :create, @task.sittings.build
+    %a(href='#{params[:id]}/sittings/new' class='btn btn-primary') New Sitting
 %br
 %br
 

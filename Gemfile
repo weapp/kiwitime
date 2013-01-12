@@ -7,8 +7,10 @@ gem 'rails', '3.2.8'
 
 gem 'sqlite3'
 
+gem 'devise'
 gem 'omniauth'
 gem 'omniauth-twitter'
+gem 'cancan'
 
 gem 'haml'
 gem 'simple_form'

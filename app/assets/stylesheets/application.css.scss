@@ -70,3 +70,12 @@ a:visited{
 .row.muted .name{
 	opacity:0.9;
 }
+
+.list .item{
+	padding:1ex 1em;
+	margin:1ex 1em;
+	border-bottom:1px solid #F2F2F2;
+	.gravatar{
+		margin-right:1em;
+	}
+}

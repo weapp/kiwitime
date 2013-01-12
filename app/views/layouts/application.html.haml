@@ -15,7 +15,7 @@
             Kiwitime!
 
           %ul.nav.pull-right
-            -if signed_in?
+            -if user_signed_in?
               %li
                 %a{:href => user_path(current_user)}
                   =gravatar_for current_user, size: 30
@@ -23,10 +23,15 @@
               %li
                 %a{:href => edit_user_path(current_user)} Settings
               %li
-                %a{:href => signout_path} Sign out
+                - #%a{:href => destroy_user_session_path, :method => :delete} Sign out
+                = link_to "Sign out", destroy_user_session_path, :method => :delete
             -else
               %li
-                %a{:href => signin_path} Sign in
+                = link_to "Sign up", new_user_registration_path
+              %li
+                %a or 
+              %li
+                %a{:href => new_user_session_path} Sign in
 
     .container
       .row
@@ -35,13 +40,16 @@
 
           %navp
             %ul.nav.nav-tabs.nav-stacked
-              %li
-                = link_to "Users", users_path
-              %li
-                = link_to "Projects", projects_path
+              - if can? :read, User
+                %li
+                  = link_to "Users", users_path
+              - if can? :read, Project
+                %li
+                  = link_to "Projects", projects_path
 
         .span9
           %p#notice= notice
+          %p#alert= alert
           / - flash.each do |k, f|
           /   \#{k} : #{f}
           = yield
