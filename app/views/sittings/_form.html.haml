@@ -10,12 +10,13 @@
             %li= msg
     .field
       = f.label :day
-      = f.date_select :day
+      =# f.date_select :day
+      .datepicker
+        = f.text_field :day
     .field
       = f.label :start
       = f.time_select :start
-      = #f.text_field :start
-
+      = #ff.input :start, :as => :date
       = #ff.input :start, :as=>"string", :input_html => {"data-datepicker" => "datepicker", :class =>"small"}
     .field
       = f.label :end
@@ -26,3 +27,35 @@
       = f.text_field(:message, class: 'input-xxlarge')
     .actions
       = f.submit
+
+:javascript
+  $(function(){
+      $(".datepicker input").datepicker({
+          dateFormat: "yy-mm-dd",
+          showOn: "button",
+          buttonImage: "/assets/calendar.gif",
+          buttonImageOnly: true
+      });
+  }); 
+
+:css
+  #ui-datepicker-div{
+    background:#FFF;
+    padding: 1ex 1em;
+    box-shadow: 1px 1px 10px whiteSmoke;
+  }
+  .ui-datepicker-prev{
+    float:left;
+  }
+  .ui-datepicker-next{
+    float:right;
+  }
+  .ui-datepicker-title{
+    text-align:center;
+  }
+
+  .ui-datepicker-current-day{background:#FFA}
+
+  a span{cursor: pointer;}
+
+  .ui-datepicker-trigger{padding-left: 10px;vertical-align:baseline}
