@@ -46,10 +46,28 @@
           %a.btn.btn-danger{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_path(@project), rel: "nofollow"}
             %i.icon-remove.icon-white
             Delete
-  
--unless @project.tasks.empty?
+
+%h3 Current Sprint
+-if @project.tasks.current.present?
   #tasks
-    =render @project.tasks
+    =render @project.tasks.current, sortable: true
+  .pull-right
+    .grey-points.sum
+      .sum-label
+        Total:
+      = "%g" % @project.tasks.current.collect{|t| t.points || 0}.sum
+-else
+  .row.task
+    No task here
+
+%h3 icebox
+-if @project.tasks.icebox.present?
+  #icebox
+    =render @project.tasks.icebox, icebox: true
+-else
+  .row.task
+    No task here
+  
   
 
 %br

@@ -64,7 +64,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update_attributes(params[:task])
-        format.html { redirect_to [@project, @task], notice: 'Task was successfully updated.' }
+        format.html { redirect_to :back, notice: 'Task was successfully updated.'}
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -100,6 +100,18 @@ class TasksController < ApplicationController
     @task.finished = false
     @task.save
     redirect_to :back, notice: 'Task is re-openend'
+  end
+
+  def up
+    @task.sprint = Sprint.current_sprint.first
+    @task.save
+    redirect_to :back, notice: 'Task is up to sprint!'
+  end
+
+  def accept
+    @task.status = "accept"
+    @task.save
+    redirect_to :back, notice: 'Task is Accepted!'
   end
 
   def start

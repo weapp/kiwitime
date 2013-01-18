@@ -30,6 +30,9 @@ class Task < ActiveRecord::Base
 
   default_scope :order => 'tasks.position ASC'
 
+  scope :icebox, lambda{ where(sprint_id: nil) }
+  scope :current, lambda{ joins(:sprint).where('sprints.init < ?', Time.now ).where( 'sprints.finish > ?', Time.now)}
+
   def in_progress?
     sittings.any? { |sitting| sitting.in_progress? }
   end

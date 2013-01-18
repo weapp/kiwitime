@@ -14,6 +14,8 @@ class Sprint < ActiveRecord::Base
   attr_accessible :finish, :init, :notas
   has_many :tasks
 
+  scope :current_sprint, lambda {where('sprints.init < ?', Time.now ).where( 'sprints.finish > ?', Time.now)}
+
   def to_s
   	"#{init} - #{finish}"
   end

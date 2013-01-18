@@ -71,6 +71,8 @@ a:visited{
 	margin:.75ex 0;
 	position:relative;
 	border:1px solid whitesmoke;
+
+	&.accept{background:#eeffcc;}
 }
 
 .handle{
@@ -99,12 +101,47 @@ a:visited{
 }
 
 
-.grey-points{
+body .grey-points{
 	width: 2em;
 	text-align:center;
 	color:#AAA;
 	font-size:25px;
 	line-height:30px;
+	position:relative;
+
+
+	.options{
+		position:absolute;
+		background:white;
+		right:0;
+		z-index:10;
+		width:320px;
+		display:none;
+		border:1px solid whitesmoke;
+		.input-grey-points{
+			float:left;
+			width: 2em;
+			text-align:center;
+			color:#AAA;
+			font-size:15px;
+			line-height:30px;
+			padding:0;
+			border:1px solid whitesmoke;
+		}
+	}
+	&:hover .options{
+		display:block;
+	}
+
+	&.sum{
+		margin: 0 -8px;
+		border: 8px solid transparent;
+		border-top: 1px solid #DDD;
+		.sum-label{
+			position:absolute;
+			left:-80px;
+		}
+	}
 }
 
 .task.row .mini-avatars{width:44px}
@@ -132,5 +169,6 @@ body{
 	  input.span#{$i}, textarea.span#{$i}, .uneditable-input.span#{$i} { width: $i*100px - 20px - 4px; }
 	}
 	
+
 
 }

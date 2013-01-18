@@ -32,6 +32,8 @@ Kiwitime::Application.routes.draw do
         get 'reopen'
         get 'start'
         get 'stop'
+        get 'up'
+        get 'accept'
       end
     end
 

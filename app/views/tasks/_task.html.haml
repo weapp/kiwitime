@@ -1,10 +1,21 @@
-= content_tag_for :div, task, class: task.finished ? "task row muted" : "task row" do
-  - if (params[:controller] == "projects" && params[:action] == "show")
+= content_tag_for :div, task, class: "task row #{task.finished ? 'muted' : ''} #{task.status}" do
+  - if (defined? sortable) && sortable
     .handle
   - #%div{class: task.finished && "row muted" || "row"}
   .pull-right
     .grey-points
-      = "%g" % task.points if task.points
+      %span.actual
+        = task.points ? "%g" % task.points : "?"
+      %span.options
+        - [0.0, 0.5, 1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 20.0, 40.0].each do |n|
+          = link_to "%g" % n, project_task_path(task.project, task, task: {"points" => n}), :method => :put, :class => "input-grey-points", onclick:"//$(this).parents('.grey-points').children('.actual').text($(this).text());return true"
+
+    /%a.button-link{"data-remote" => "true", :href => "sauce"} Get remote sauce
+    / .grey-points
+    /   = form_for([task.project, task], :remote => true) do |f|
+    /     = f.select(:points, [0.0, 0.5, 1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 20.0, 40.0].collect{|n| ["%g" % n, n]}, {:include_blank => true}, class: "input-grey-points submittable")
+    /     %input{type: "submit"}
+    /    -#%input.grey-points{value: task.points ? "%g" % task.points : "?"}
 
   .span1.mini-avatars
     - task.users.uniq.each do |user|
@@ -21,26 +32,42 @@
       %i.icon-ok.icon-gray
 
   .btn-group.pull-right
+    -if (defined? icebox) && icebox
+      %a.btn.btn-inverse{href:up_project_task_path(task.project, task)}
+        %i.icon-arrow-up.icon-white
+        Up to current sprint
+    -elsif task.status == "accept"
+    -else
+      - if task.finished
+        /%a.btn.btn-inverse{href:reopen_project_task_path(task.project, task)}
+        /  %i.icon-repeat.icon-white
+        /  Re-open
+        %a.btn.btn-success(href='#{accept_project_task_path(task.project, task)}')
+          %i.icon-ok-circle.icon-white
+          Accept
+        %a.btn.btn-danger(href='#{reopen_project_task_path(task.project, task)}')
+          %i.icon-ban-circle.icon-white
+          Reject
 
-    - if task.finished
-      %a.btn.btn-inverse{href:reopen_project_task_path(task.project, task)}
-        %i.icon-repeat.icon-white
-        Re-open
-    - else
-      -if task.in_progress_for_user?(current_user)
-        %form{action: stop_project_task_path(task.project, task)}
-          .input-append
-            %input.input-span2{type: "text", name:"message", placeholder: 'Describe your job here'}
-              %button.btn.btn-danger{:type => "submit"}
-                %i.icon-stop.icon-white
-                stop
-      -else
-        %a.btn.btn-success(href='#{start_project_task_path(task.project, task)}')
-          %i.icon-play.icon-white
-          start
-        %a.btn.btn-inverse(href='#{finish_project_task_path(task.project, task)}')
-          %i.icon-check.icon-white
-          Finish Him!
+      - else
+        -if task.in_progress_for_user?(current_user)
+          %form{action: stop_project_task_path(task.project, task)}
+            .input-append
+              %input.input-span2{type: "text", name:"message", placeholder: 'Describe your job here'}
+                %button.btn.btn-danger{:type => "submit"}
+                  %i.icon-stop.icon-white
+                  stop
+        -else
+          %a.btn.btn-success(href='#{start_project_task_path(task.project, task)}')
+            %i.icon-play.icon-white
+            Start
+          %a.btn.btn-inverse(href='#{finish_project_task_path(task.project, task)}')
+            %i.icon-check.icon-white
+            /Finish Him!
+            Deliver
+
+
+
     /  .btn.btn-link{style:'width:3px;padding:2px 0;background:#AAA'}
     /    &nbsp;
     /%a.btn(href='#{project_task_path(@project, task)}/sittings/new')

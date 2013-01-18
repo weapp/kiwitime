@@ -19,7 +19,7 @@
   .field
     = f.label :points
     =# f. :points, class: 'span1'
-    = f.select(:points, %w[0 0.5 1 2 3 5 8 13 20 40], { :index => nil })
+    = f.select(:points, [0.0, 0.5, 1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 20.0, 40.0].collect{|n| ["%g" % n, n]}, {:include_blank => true})
     points
   .field
     %label.checkbox
