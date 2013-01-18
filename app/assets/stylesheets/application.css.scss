@@ -67,11 +67,23 @@ a:visited{
 .icon-grey{opacity:.3}
 
 .task.row{
-	margin:1.5ex 0;
+	padding:.75ex 0px .75ex 5px;
+	margin:.75ex 0;
 	position:relative;
+	border:1px solid whitesmoke;
 }
 
-.handle{position:absolute;left:-25px;}
+.handle{
+	position:absolute;
+	left:0px;
+	width:16px;
+	border:1px solid whitesmoke;
+	top:-1px;
+	padding-left:3px;
+	height:100%;
+	background:whitesmoke url('DragTaskIcon4.png') center center no-repeat;
+}
+
 
 .row.muted .name{
 	opacity:0.9;
@@ -84,4 +96,37 @@ a:visited{
 	.gravatar{
 		margin-right:1em;
 	}
+}
+
+
+.grey-points{
+	width: 2em;
+	text-align:center;
+	color:#AAA;
+	font-size:25px;
+	line-height:30px;
+}
+
+.task.row .mini-avatars{width:44px}
+
+
+.ui-state-highlight{
+	height:40px;
+	border:1px solid whitesmoke;
+	background: #FCFCFA;
+}
+
+body{
+	.container,
+	.navbar-static-top .container,
+	.navbar-fixed-top .container,
+	.navbar-fixed-bottom .container{
+		width: 1200px - 20px;
+	}
+	
+	@for $i from 1 through 12 {
+	  .span#{$i} { width: $i*100px - 20px; }
+	}
+
+
 }

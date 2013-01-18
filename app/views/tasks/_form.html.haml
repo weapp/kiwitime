@@ -1,0 +1,25 @@
+= form_for([@project, @task]) do |f|
+  - if @task.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@task.errors.count, "error")
+        prohibited this task from being saved:
+      %ul
+        - @task.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :description
+    = f.text_area :description, :size => "25x5", class: 'span5'
+  .field
+    = f.label :time_scope
+    = f.number_field :time_scope
+    points
+  .field
+    %label.checkbox
+      = f.check_box :finished
+      Finished
+  .actions
+    = f.submit
