@@ -128,5 +128,9 @@ body{
 	  .span#{$i} { width: $i*100px - 20px; }
 	}
 
+	@for $i from 1 through 12 {
+	  input.span#{$i}, textarea.span#{$i}, .uneditable-input.span#{$i} { width: $i*100px - 20px - 4px; }
+	}
+	
 
 }

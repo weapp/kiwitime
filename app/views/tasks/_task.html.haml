@@ -4,7 +4,7 @@
   - #%div{class: task.finished && "row muted" || "row"}
   .pull-right
     .grey-points
-      = task.time_scope
+      = "%g" % task.points if task.points
 
   .span1.mini-avatars
     - task.users.uniq.each do |user|
@@ -12,7 +12,7 @@
   .span4.name
     %a{href:project_task_path(task.project, task)}
       =task.name.truncate(60)
-      -# %small (#{task.sittings.sum{|s| s.delta}} of #{pluralize(task.time_scope, 'minute')})
+      -# %small (#{task.sittings.sum{|s| s.delta}} of #{pluralize(task.points, 'point')})
     -if (params[:controller] == "projects" && params[:action] == "show")
       %small= task.description.truncate(60, separator: ' ')
     -else

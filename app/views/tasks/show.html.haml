@@ -28,7 +28,7 @@
   %p.span4
     %i.icon-time
     %b Time scope:
-    = pluralize(@task.time_scope, 'minute')
+    = pluralize(@task.points, 'point')
 
 /= link_to 'Sittings', project_task_sittings_path(@project, @task)
 

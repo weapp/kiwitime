@@ -5,19 +5,19 @@
 #  id          :integer          not null, primary key
 #  name        :string(255)
 #  description :string(255)
-#  time_scope  :integer
 #  project_id  :integer
 #  finished    :boolean
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  position    :integer
 #  sprint_id   :integer
+#  points      :float
 #
 
 class Task < ActiveRecord::Base
   acts_as_list
 
-  attr_accessible :description, :finished, :name, :project_id, :time_scope, :sprint_id
+  attr_accessible :description, :finished, :name, :project_id, :points, :sprint_id
 
   belongs_to :project
   belongs_to :sprint
@@ -45,4 +45,5 @@ class Task < ActiveRecord::Base
   def finish_at
     finished && (sittings.collect{|s| s.day}.max || updated_at.to_date)
   end
+
 end

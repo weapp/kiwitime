@@ -35,4 +35,12 @@ class Project < ActiveRecord::Base
   def to_s
     name.humanize
   end
+
+  def points_finished
+    @points_finished ||= (tasks.collect{|t| t.finished ? (t.points||0) : 0 }).sum()
+  end
+
+  def total_points
+    @total_points ||= (tasks.collect{|t| t.points||0}).sum()
+  end
 end

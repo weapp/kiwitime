@@ -9,17 +9,18 @@
           %li= msg
   .field
     = f.label :name
-    = f.text_field :name
+    = f.text_field :name, class: 'span6'
   .field
     = f.label :description
-    = f.text_area :description, :size => "25x5", class: 'span5'
-  .field
-    = f.label :time_scope
-    = f.number_field :time_scope
-    points
+    = f.text_area :description, :size => "25x5", class: 'span6'
   .field
     = f.label :sprint_id, "Sprint"
     = f.select(:sprint_id, Sprint.all.collect{|s| [s, s.id]}, :prompt => true)
+  .field
+    = f.label :points
+    =# f. :points, class: 'span1'
+    = f.select(:points, %w[0 0.5 1 2 3 5 8 13 20 40], { :index => nil })
+    points
   .field
     %label.checkbox
       = f.check_box :finished

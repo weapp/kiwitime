@@ -15,7 +15,7 @@
   <tr>
     <td><%= link_to task.name, project_task_path(@project, task) %></td>
     <td><%= task.description %></td>
-    <td><%= pluralize(task.time_scope, 'minute') %></td>
+    <td><%= pluralize(task.points, 'point') %></td>
     <td><%= task.project_id %></td>
     <td><%= task.finished %></td>
     <td><%= link_to 'Edit', edit_project_task_path(@project, task) %></td>

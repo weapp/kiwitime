@@ -4,16 +4,15 @@
     %li.projects-project
       .pull-right
         .progress.span5
-          .bar.bar-success{style:"width: #{(project.tasks.collect{|t| t.finished ? (t.time_scope||0) : 0 }).sum() * 100 / (project.tasks.collect{|t| t.time_scope||0 }).sum()}%;"}
+          -if project.total_points > 0
+            .bar.bar-success{style: "width: #{project.points_finished * 100 / project.total_points}%;"}
           //.bar.bar-warning{style:"width: #{(project.tasks.collect{|t| t.in_progress?}).count(true) * 100 / project.tasks.count}%;"}
         .span1
-          \#{(project.tasks.collect{|t| t.finished ? (t.time_scope||0) : 0 }).sum()}
+          \#{(project.tasks.collect{|t| t.finished ? (t.points||0) : 0 }).sum()}
           \/
-          = (project.tasks.collect{|t| t.time_scope||0 }).sum()
+          = (project.tasks.collect{|t| t.points||0 }).sum()
       %h4
         = link_to project.name, project, class: 'projects-project-name'
-
-
 
 %br
 

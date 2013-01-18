@@ -5,13 +5,13 @@
 #  id          :integer          not null, primary key
 #  name        :string(255)
 #  description :string(255)
-#  time_scope  :integer
 #  project_id  :integer
 #  finished    :boolean
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  position    :integer
 #  sprint_id   :integer
+#  points      :float
 #
 
 require 'test_helper'
