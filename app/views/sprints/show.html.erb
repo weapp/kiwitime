@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Init:</b>
+  <%= @sprint.init %>
+</p>
+
+<p>
+  <b>Finish:</b>
+  <%= @sprint.finish %>
+</p>
+
+<p>
+  <b>Notas:</b>
+  <%= @sprint.notas %>
+</p>
+
+
+<%= link_to 'Edit', edit_sprint_path(@sprint) %> |
+<%= link_to 'Back', sprints_path %>
