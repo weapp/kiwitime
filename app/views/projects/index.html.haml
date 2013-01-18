@@ -3,13 +3,13 @@
   - @projects.each do |project|
     %li.projects-project
       .pull-right
-        .progress.span4
-          .bar.bar-success{style:"width: #{(project.tasks.collect{|t| t.finished}).count(true) * 100 / project.tasks.count}%;"}
-          .bar.bar-warning{style:"width: #{(project.tasks.collect{|t| t.in_progress?}).count(true) * 100 / project.tasks.count}%;"}
+        .progress.span5
+          .bar.bar-success{style:"width: #{(project.tasks.collect{|t| t.finished ? (t.time_scope||0) : 0 }).sum() * 100 / (project.tasks.collect{|t| t.time_scope||0 }).sum()}%;"}
+          //.bar.bar-warning{style:"width: #{(project.tasks.collect{|t| t.in_progress?}).count(true) * 100 / project.tasks.count}%;"}
         .span1
-          \#{(project.tasks.collect{|t| t.finished}).count(true)}
+          \#{(project.tasks.collect{|t| t.finished ? (t.time_scope||0) : 0 }).sum()}
           \/
-          = project.tasks.count
+          = (project.tasks.collect{|t| t.time_scope||0 }).sum()
       %h4
         = link_to project.name, project, class: 'projects-project-name'
 
