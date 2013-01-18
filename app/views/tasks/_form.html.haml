@@ -18,8 +18,13 @@
     = f.number_field :time_scope
     points
   .field
+    = f.label :sprint_id, "Sprint"
+    = f.select(:sprint_id, Sprint.all.collect{|s| [s, s.id]}, :prompt => true)
+  .field
     %label.checkbox
       = f.check_box :finished
       Finished
+
+
   .actions
     = f.submit

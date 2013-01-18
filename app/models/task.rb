@@ -11,15 +11,16 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  position    :integer
-#  print_id    :integer
+#  sprint_id   :integer
 #
 
 class Task < ActiveRecord::Base
   acts_as_list
 
-  attr_accessible :description, :finished, :name, :project_id, :time_scope
+  attr_accessible :description, :finished, :name, :project_id, :time_scope, :sprint_id
 
   belongs_to :project
+  belongs_to :sprint
 
   has_many :sittings, dependent: :destroy
   has_many :users,  :through => :sittings

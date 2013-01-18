@@ -1,5 +1,6 @@
 = content_tag_for :div, task, class: task.finished ? "task row muted" : "task row" do
-  .handle
+  - if (params[:controller] == "projects" && params[:action] == "show")
+    .handle
   - #%div{class: task.finished && "row muted" || "row"}
   .pull-right
     .grey-points
@@ -12,7 +13,10 @@
     %a{href:project_task_path(task.project, task)}
       =task.name.truncate(60)
       -# %small (#{task.sittings.sum{|s| s.delta}} of #{pluralize(task.time_scope, 'minute')})
-    %small= task.description.truncate(60, separator: ' ')
+    -if (params[:controller] == "projects" && params[:action] == "show")
+      %small= task.description.truncate(60, separator: ' ')
+    -else
+      %small on #{task.project}
     -if task.finished
       %i.icon-ok.icon-gray
 

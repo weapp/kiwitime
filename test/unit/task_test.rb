@@ -11,7 +11,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  position    :integer
-#  print_id    :integer
+#  sprint_id   :integer
 #
 
 require 'test_helper'

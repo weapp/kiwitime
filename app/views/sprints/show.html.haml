@@ -1,0 +1,20 @@
+.page-header
+  %h2
+    = @sprint
+    %small
+      = @sprint.notas
+      .pull-right
+        .btn-group
+          %a.btn.btn-warning{href: edit_sprint_path(@sprint)}
+            %i.icon-pencil.icon-white
+            Edit
+          %a.btn.btn-danger{"data-confirm" => "Are you sure?", "data-method" => "delete", href: sprint_path(@sprint), rel: "nofollow"}
+            %i.icon-remove.icon-white
+            Delete
+
+-unless @sprint.tasks.empty?
+  #tasks
+    =render @sprint.tasks
+  
+
+= link_to 'Back', sprints_path, class: 'btn' 

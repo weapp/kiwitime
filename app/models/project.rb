@@ -31,4 +31,8 @@ class Project < ActiveRecord::Base
     }.update(options)
     super(options)
   end
+
+  def to_s
+    name.humanize
+  end
 end

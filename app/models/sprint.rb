@@ -12,4 +12,9 @@
 
 class Sprint < ActiveRecord::Base
   attr_accessible :finish, :init, :notas
+  has_many :tasks
+
+  def to_s
+  	"#{init} - #{finish}"
+  end
 end

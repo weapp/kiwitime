@@ -40,9 +40,7 @@
     .container
       .row
         .span3
-
-
-          %navp
+          %nav
             %ul.nav.nav-tabs.nav-stacked
               - if can? :read, User
                 %li
@@ -50,6 +48,16 @@
               - if can? :read, Project
                 %li
                   = link_to "Projects", projects_path
+              - if can? :index, Sprint
+                %li
+                  = link_to "Sprints", sprints_path
+  
+          - if can? :index, Sprint
+            %h5 Recent Sprints
+            %nav
+              %ul.nav.nav-tabs.nav-stacked
+                - Sprint.all.each do |sprint|
+                  %li= link_to "#{sprint.init} - #{sprint.finish}", sprint_path(sprint)
 
         .span9
           %p#notice= notice
