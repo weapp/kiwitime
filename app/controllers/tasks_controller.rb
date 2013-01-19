@@ -103,7 +103,7 @@ class TasksController < ApplicationController
   end
 
   def up
-    @task.sprint = Sprint.current_sprint.first
+    @task.sprint = Sprint.current
     @task.save
     redirect_to :back, notice: 'Task is up to sprint!'
   end

@@ -76,3 +76,7 @@
     %a{href:new_project_task_path(@project), class:'btn btn-primary'} New Task 
 
 = link_to 'Back', projects_path, class: 'btn' 
+
+#chart
+= render_chart(@chart, 'chart')
+

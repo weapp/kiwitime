@@ -32,6 +32,7 @@ class Task < ActiveRecord::Base
 
   scope :icebox, lambda{ where(sprint_id: nil) }
   scope :current, lambda{ joins(:sprint).where('sprints.init < ?', Time.now ).where( 'sprints.finish > ?', Time.now)}
+  #(day && t.finish_at) ? ((t.finish_at < day) ? t.points : 0) : 0}.sum }
 
   def in_progress?
     sittings.any? { |sitting| sitting.in_progress? }
@@ -46,7 +47,7 @@ class Task < ActiveRecord::Base
   end
 
   def finish_at
-    finished && (sittings.collect{|s| s.day}.max || updated_at.to_date)
+    finished && (sittings.collect{|s| s.day}.select{|s| s}.max || updated_at.to_date)
   end
 
 end

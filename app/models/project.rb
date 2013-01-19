@@ -37,10 +37,16 @@ class Project < ActiveRecord::Base
   end
 
   def points_finished
-    @points_finished ||= (tasks.collect{|t| t.finished ? (t.points||0) : 0 }).sum()
+    @points_finished ||= (tasks.collect{|t| t.finished ? (t.points||0) : 0 }).sum
   end
 
   def total_points
-    @total_points ||= (tasks.collect{|t| t.points||0}).sum()
+    @total_points ||= (tasks.collect{|t| t.points||0}).sum
   end
+
+  def current_total_points
+    @current_total_points ||= (tasks.current.collect{|t| t.points||0}).sum
+  end
+
+
 end

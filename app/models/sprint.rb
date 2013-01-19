@@ -19,4 +19,8 @@ class Sprint < ActiveRecord::Base
   def to_s
   	"#{init} - #{finish}"
   end
+
+  def self.current
+  	Sprint.current_sprint.first
+  end
 end

@@ -17,8 +17,30 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1
   # GET /projects/1.json
-  def show
+  def show    
+    @chart = current_chart
     respond_with(@project)
+  end
+
+  def current_chart
+    data_table = GoogleVisualr::DataTable.new
+    # Add Column Headers 
+    data_table.new_column('string', 'Day' ) 
+    data_table.new_column('number', 'Actual') 
+    data_table.new_column('number', 'Scope') 
+    sprint = Sprint.current
+    data = (sprint.init..sprint.finish).collect do |d|
+      [
+        d.to_s(:short),
+        (Time.now >= d) ? (@project.current_total_points - @project.tasks.select{|t| t.finish_at && t.finish_at < d }.collect{|t| t.points}.sum) : nil,
+        (@project.current_total_points * (sprint.finish - d) / (sprint.finish - sprint.init)),
+      ]
+    end
+    
+    # Add Rows and Values 
+    data_table.add_rows(data)
+    option = { width: 800, height: 400, title: 'Company Performance', legend: {position: "none"} }
+    GoogleVisualr::Interactive::LineChart.new(data_table, option)
   end
 
   def report
