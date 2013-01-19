@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   load_and_authorize_resource
+  load_and_authorize_resource :sprint, :only => :sprint
 
   respond_to :html, :json
   layout false, only: :report
@@ -22,18 +23,24 @@ class ProjectsController < ApplicationController
     respond_with(@project)
   end
 
-  def current_chart
+  def sprint    
+    @chart = chart(@sprint)
+    #render :template => 'projects/show'
+    respond_with(@project)
+  end
+
+  def chart(sprint)
+    total_points = @project.total_points_by_sprint(sprint)
     data_table = GoogleVisualr::DataTable.new
     # Add Column Headers 
     data_table.new_column('string', 'Day' ) 
     data_table.new_column('number', 'Actual') 
     data_table.new_column('number', 'Scope') 
-    sprint = Sprint.current
     data = (sprint.init..sprint.finish).collect do |d|
       [
         d.to_s(:short),
-        (Time.now >= d) ? (@project.current_total_points - @project.tasks.select{|t| t.finish_at && t.finish_at < d }.collect{|t| t.points}.sum) : nil,
-        (@project.current_total_points * (sprint.finish - d) / (sprint.finish - sprint.init)),
+        (Time.now >= d) ? (total_points - @project.tasks.select{|t| t.finish_at && t.finish_at < d }.collect{|t| t.points}.sum) : nil,
+        (total_points * (sprint.finish - d) / (sprint.finish - sprint.init)),
       ]
     end
     
@@ -41,6 +48,10 @@ class ProjectsController < ApplicationController
     data_table.add_rows(data)
     option = { width: 800, height: 400, title: 'Company Performance', legend: {position: "none"} }
     GoogleVisualr::Interactive::LineChart.new(data_table, option)
+  end
+
+  def current_chart
+    chart(Sprint.current)
   end
 
   def report

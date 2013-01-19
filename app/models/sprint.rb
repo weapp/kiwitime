@@ -21,6 +21,6 @@ class Sprint < ActiveRecord::Base
   end
 
   def self.current
-  	Sprint.current_sprint.first
+  	@current ||= Sprint.current_sprint.first
   end
 end

@@ -80,3 +80,10 @@
 #chart
 = render_chart(@chart, 'chart')
 
+
+- if can? :index, Sprint
+  %h5 Recent Sprints
+  %nav
+    %ul.nav.nav-tabs.nav-stacked
+      - Sprint.all.each do |sprint|
+        %li= link_to sprint, sprint_project_path(@project, sprint)

@@ -44,8 +44,12 @@ class Project < ActiveRecord::Base
     @total_points ||= (tasks.collect{|t| t.points||0}).sum
   end
 
+  def total_points_by_sprint(sprint)
+    (tasks.by_sprint(sprint).collect{|t| t.points||0}).sum
+  end
+
   def current_total_points
-    @current_total_points ||= (tasks.current.collect{|t| t.points||0}).sum
+    @current_total_points ||= total_points_by_sprint(Sprint.current)
   end
 
 

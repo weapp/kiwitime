@@ -39,6 +39,7 @@ Kiwitime::Application.routes.draw do
 
     member do
       get 'report'
+      get 'sprint/:sprint_id' => :sprint, as: :sprint
     end
   end
 

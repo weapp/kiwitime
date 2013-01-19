@@ -31,7 +31,8 @@ class Task < ActiveRecord::Base
   default_scope :order => 'tasks.position ASC'
 
   scope :icebox, lambda{ where(sprint_id: nil) }
-  scope :current, lambda{ joins(:sprint).where('sprints.init < ?', Time.now ).where( 'sprints.finish > ?', Time.now)}
+  scope :by_sprint, lambda{|sprint| where(sprint_id: sprint.id)}
+  scope :current, lambda{by_sprint Sprint.current}
   #(day && t.finish_at) ? ((t.finish_at < day) ? t.points : 0) : 0}.sum }
 
   def in_progress?
