@@ -9,11 +9,7 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     @projects = @projects.includes(:tasks).all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @projects }
-    end
+    respond_with(@projects)
   end
 
   # GET /projects/1
@@ -65,7 +61,6 @@ class ProjectsController < ApplicationController
   end
 
   def report
-    show
   end
 
   # GET /projects/new
