@@ -32,7 +32,7 @@ class Sprint < ActiveRecord::Base
   	@stats ||= (init..finish).collect do |d|
       [
         d.to_s(:short),
-        (Time.now >= d) ? (total_points - tasks.select{|t| t.finished_at d }.collect{|t| t.points}.sum) : nil,
+        (Time.now >= d) ? (total_points - tasks.select{|t| t.finished_at d }.collect{|t| t.points || 0}.sum) : nil,
         (total_points * (finish - d) / days),
       ]
   	end
@@ -40,15 +40,15 @@ class Sprint < ActiveRecord::Base
 
   def chart
     if stats[0][1].present?
-    data_table = GoogleVisualr::DataTable.new
-    # Add Column Headers 
-    data_table.new_column('string', 'Day' ) 
-    data_table.new_column('number', 'Actual') 
-    data_table.new_column('number', 'Scope')
-    # Add Rows and Values 
-    data_table.add_rows(stats)
-    option = { width: 800, height: 400, title: to_s, legend: {position: "none"} }
-    @chart = GoogleVisualr::Interactive::LineChart.new(data_table, option)
+      data_table = GoogleVisualr::DataTable.new
+      # Add Column Headers 
+      data_table.new_column('string', 'Day' ) 
+      data_table.new_column('number', 'Actual') 
+      data_table.new_column('number', 'Scope')
+      # Add Rows and Values 
+      data_table.add_rows(stats)
+      option = { width: 800, height: 400, title: to_s, legend: {position: "none"} }
+      @chart = GoogleVisualr::Interactive::LineChart.new(data_table, option)
     end
   end
 

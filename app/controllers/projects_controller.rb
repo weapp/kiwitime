@@ -34,21 +34,13 @@ class ProjectsController < ApplicationController
   end
 
   def chart(sprint)
-    total_points = @project.total_points_by_sprint(sprint)
-    data_table = GoogleVisualr::DataTable.new
-    # Add Column Headers 
-    data_table.new_column('string', 'Day' ) 
-    data_table.new_column('number', 'Actual') 
-    data_table.new_column('number', 'Scope')
-    data = (sprint.init..sprint.finish).collect do |d|
-      [
-        d.to_s(:short),
-        (Time.now >= d) ? (total_points - @project.tasks.select{|t| t.finish_at && t.finish_at < d }.collect{|t| t.points}.sum) : nil,
-        (total_points * (sprint.finish - d) / (sprint.finish - sprint.init)),
-      ]
-    end
-    
+    data = @project.stats(sprint)
     if data[0][1].present?
+      data_table = GoogleVisualr::DataTable.new
+      # Add Column Headers 
+      data_table.new_column('string', 'Day' ) 
+      data_table.new_column('number', 'Actual') 
+      data_table.new_column('number', 'Scope')
       # Add Rows and Values 
       data_table.add_rows(data)
       option = { width: 800, height: 400, title: "#{@project} #{sprint}", legend: {position: "none"} }

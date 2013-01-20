@@ -52,5 +52,16 @@ class Project < ActiveRecord::Base
     @current_total_points ||= total_points_by_sprint(Sprint.current)
   end
 
+  def stats(sprint)
+    tp = total_points_by_sprint(sprint)
+    (sprint.init..sprint.finish).collect do |d|
+      [
+        d.to_s(:short),
+        (Time.now >= d) ? (tp - tasks.select{|t| t.finished_at d }.collect{|t| t.points || 0}.sum) : nil,
+        (tp * (sprint.finish - d) / (sprint.days)),
+      ]
+    end
+  end
+
 
 end
