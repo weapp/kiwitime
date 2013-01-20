@@ -9,15 +9,14 @@
           %li= msg
   .field
     = f.label :init
-    %br/
-    = f.date_select :init
+    .datepicker
+      = f.text_field :init
   .field
     = f.label :finish
-    %br/
-    = f.date_select :finish
+    .datepicker
+      = f.text_field :finish
   .field
     = f.label :notas
-    %br/
     = f.text_field :notas
   .actions
     = f.submit

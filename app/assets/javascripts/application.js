@@ -18,3 +18,14 @@
 $('.submittable').live('change', function() {
   //$(this).parents('form:first').submit();
 });
+
+
+
+$(function(){
+  $(".datepicker input").datepicker({
+      dateFormat: "yy-mm-dd",
+      showOn: "button",
+      buttonImage: "/assets/calendar.gif",
+      buttonImageOnly: true
+  });
+}); 

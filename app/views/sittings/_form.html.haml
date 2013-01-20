@@ -27,35 +27,3 @@
       = f.text_field(:message, class: 'input-xxlarge')
     .actions
       = f.submit
-
-:javascript
-  $(function(){
-      $(".datepicker input").datepicker({
-          dateFormat: "yy-mm-dd",
-          showOn: "button",
-          buttonImage: "/assets/calendar.gif",
-          buttonImageOnly: true
-      });
-  }); 
-
-:css
-  #ui-datepicker-div{
-    background:#FFF;
-    padding: 1ex 1em;
-    box-shadow: 1px 1px 10px whiteSmoke;
-  }
-  .ui-datepicker-prev{
-    float:left;
-  }
-  .ui-datepicker-next{
-    float:right;
-  }
-  .ui-datepicker-title{
-    text-align:center;
-  }
-
-  .ui-datepicker-current-day{background:#FFA}
-
-  a span{cursor: pointer;}
-
-  .ui-datepicker-trigger{padding-left: 10px;vertical-align:baseline}

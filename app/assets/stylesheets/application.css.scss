@@ -152,11 +152,6 @@ body .grey-points{
 .task.row .mini-avatars{width:44px}
 
 
-.ui-state-highlight{
-	height:40px;
-	border:1px solid whitesmoke;
-	background: #FCFCFA;
-}
 
 body{
 	.container,
@@ -178,3 +173,37 @@ body{
 .form-inline{
 	margin:0;
 }
+
+#ui-datepicker-div{
+  background:#FFF;
+  padding: 1ex 1em;
+  box-shadow: 1px 1px 10px whiteSmoke;
+}
+.ui-datepicker-prev{
+  float:left;
+}
+.ui-datepicker-next{
+  float:right;
+}
+.ui-datepicker-title{
+  text-align:center;
+}
+
+
+a span{cursor: pointer;}
+
+.ui-datepicker-trigger{padding-left: 10px;vertical-align:baseline}
+
+.ui-datepicker-calendar{
+  .ui-datepicker-current-day{}
+  .ui-state-highlight{background: #FCFCFA;}
+  .ui-state-active{background: #FFA;}
+  td, th{
+    padding:0;
+    span, a{
+      padding:1ex 1em;
+      display:block;
+    }
+  }
+}
+
