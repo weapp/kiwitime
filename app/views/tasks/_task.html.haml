@@ -8,14 +8,7 @@
         = task.points ? "%g" % task.points : "?"
       %span.options
         - [0.0, 0.5, 1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 20.0, 40.0].each do |n|
-          = link_to "%g" % n, project_task_path(task.project, task, task: {"points" => n}), :method => :put, :class => "input-grey-points", onclick:"//$(this).parents('.grey-points').children('.actual').text($(this).text());return true"
-
-    /%a.button-link{"data-remote" => "true", :href => "sauce"} Get remote sauce
-    / .grey-points
-    /   = form_for([task.project, task], :remote => true) do |f|
-    /     = f.select(:points, [0.0, 0.5, 1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 20.0, 40.0].collect{|n| ["%g" % n, n]}, {:include_blank => true}, class: "input-grey-points submittable")
-    /     %input{type: "submit"}
-    /    -#%input.grey-points{value: task.points ? "%g" % task.points : "?"}
+          = link_to "%g" % n, project_task_path(task.project, task, task: {"points" => n}), :method => :put, :class => "input-grey-points"
 
   .span1.mini-avatars
     - task.users.uniq.each do |user|
@@ -24,18 +17,18 @@
     %a{href:project_task_path(task.project, task)}
       =task.name.truncate(60)
       -# %small (#{task.sittings.sum{|s| s.delta}} of #{pluralize(task.points, 'point')})
-    -if (params[:controller] == "projects" && params[:action] == "show")
+    -if (params[:controller] == "projects")
       %small= task.description.truncate(60, separator: ' ')
     -else
-      %small on #{task.project}
+      %small on #{link_to(task.project, task.project)}
     -if task.finished
       %i.icon-ok.icon-gray
 
   .btn-group.pull-right
     -if (defined? icebox) && icebox
-      %a.btn.btn-inverse{href:up_project_task_path(task.project, task)}
+      %a.btn.btn-inverse{href: project_task_path(task.project, task, task: {"sprint_id" => @sprint.id}), "data-method" => :put}
         %i.icon-arrow-up.icon-white
-        Up to current sprint
+        Up to current sprint :D
     -elsif task.status == "accept"
     -else
       - if task.finished

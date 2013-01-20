@@ -99,6 +99,7 @@ class TasksController < ApplicationController
 
   def reopen
     @task.finished = false
+    @task.sprint = nil
     @task.save
     redirect_to :back, notice: 'Task is re-openend'
   end

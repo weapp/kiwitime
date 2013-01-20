@@ -18,15 +18,23 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1
   # GET /projects/1.json
-  def show    
+  def show
+    @sprint = Sprint.current
+    @task_current_sprint = @project.tasks.current
     @chart = current_chart
     respond_with(@project)
   end
 
-  def sprint    
+  def sprint
+    @task_current_sprint = @project.tasks.by_sprint_id(params[:sprint_id])
     @chart = chart(@sprint)
     #render :template => 'projects/show'
-    respond_with(@project)
+
+    respond_to do |format|
+      format.json {respond_with(@project)}
+      format.html {render :action => 'show'}
+    end
+    
   end
 
   def chart(sprint)
@@ -44,10 +52,10 @@ class ProjectsController < ApplicationController
       ]
     end
     
-    unless data[0][1].present?
+    if data[0][1].present?
       # Add Rows and Values 
       data_table.add_rows(data)
-      option = { width: 800, height: 400, title: 'Company Performance', legend: {position: "none"} }
+      option = { width: 800, height: 400, title: "#{@project} #{sprint}", legend: {position: "none"} }
       GoogleVisualr::Interactive::LineChart.new(data_table, option)
     end
   end

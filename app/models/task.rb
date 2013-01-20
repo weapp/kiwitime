@@ -33,7 +33,8 @@ class Task < ActiveRecord::Base
   default_scope :order => 'tasks.position ASC'
 
   scope :icebox, lambda{ where(sprint_id: nil) }
-  scope :by_sprint, lambda{|sprint| where(sprint_id: sprint.id)}
+  scope :by_sprint_id, lambda{|sprint_id| where(sprint_id: sprint_id)}
+  scope :by_sprint, lambda{|sprint| by_sprint_id(sprint.id)}
   scope :current, lambda{by_sprint Sprint.current}
   #(day && t.finish_at) ? ((t.finish_at < day) ? t.points : 0) : 0}.sum }
 
@@ -51,6 +52,10 @@ class Task < ActiveRecord::Base
 
   def finish_at
     finished && (sittings.collect{|s| s.day}.select{|s| s}.max || updated_at.to_date)
+  end
+
+  def finished_at(day)
+    finish_at && finish_at <= day
   end
 
 end

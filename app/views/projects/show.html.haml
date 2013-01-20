@@ -47,15 +47,18 @@
             %i.icon-remove.icon-white
             Delete
 
-%h3 Current Sprint
--if @project.tasks.current.present?
+%h3
+  Current Sprint
+  -if @sprint
+    %small (#{@sprint})
+-if @task_current_sprint.present?
   #tasks
-    =render @project.tasks.current, sortable: true
+    =render @task_current_sprint, sortable: true
   .pull-right
     .grey-points.sum
       .sum-label
         Total:
-      = "%g" % @project.tasks.current.collect{|t| t.points || 0}.sum
+      = "%g" % @task_current_sprint.collect{|t| t.points || 0}.sum
 -else
   .row.task
     No task here

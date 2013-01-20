@@ -16,5 +16,8 @@
   #tasks
     =render @sprint.tasks
   
+#chart
+-if @sprint.chart
+  = render_chart(@sprint.chart, 'chart')
 
 = link_to 'Back', sprints_path, class: 'btn' 
