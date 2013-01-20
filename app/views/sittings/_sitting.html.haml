@@ -1,5 +1,5 @@
 .row
-  .span2
+  .span3
     %a{href:(user_path sitting.user), alt: sitting.user}
       =gravatar_for sitting.user, size: 20
       = #sitting.user && sitting.user.name
@@ -13,7 +13,7 @@
       %a.btn.btn-mini.btn-danger{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_sitting_path(@project, @task, sitting), rel: "nofollow"}
         %i.icon-remove.icon-white
 .row
-  .span3
+  .span4
     .pull-right.muted
       = sitting.day && sitting.day.to_s(:short)
       #{!sitting.start.nil? && sitting.start.strftime("%H:%M")} -
