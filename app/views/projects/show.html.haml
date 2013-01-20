@@ -47,22 +47,30 @@
             %i.icon-remove.icon-white
             Delete
 
-%h3
-  Current Sprint
-  -if @sprint
-    %small (#{@sprint})
--if @task_current_sprint.present?
-  #tasks
-    =render @task_current_sprint, sortable: true
-  .pull-right
-    .grey-points.sum
-      .sum-label
-        Total:
-      = "%g" % @task_current_sprint.collect{|t| t.points || 0}.sum
--else
-  .row.task
-    No task here
+-if @sprint
+  %h3
+    Current Sprint
+    -if @sprint
+      %small (#{@sprint})
+  -if @task_current_sprint.present?
+    #tasks
+      =render @task_current_sprint, sortable: true
+    .pull-right
+      .grey-points.sum
+        .sum-label
+          Total:
+        = "%g" % @task_current_sprint.collect{|t| t.points || 0}.sum
+  -else
+    .row.task
+      No task here
 
+-else
+  %h3
+    No Current Sprint
+  %center.form-actions
+    %a.btn.btn-primary.btn-large{href: new_sprint_path}
+      %span.span4 New Sprint
+    
 %h3 icebox
 -if @project.tasks.icebox.present?
   #icebox
@@ -76,7 +84,7 @@
 %br
 .pull-right
   -if can? :create, @project.tasks.build
-    %a{href:new_project_task_path(@project), class:'btn btn-primary'} New Task 
+    %a.btn.btn-primary{href:new_project_task_path(@project)} New Task 
 
 = link_to 'Back', projects_path, class: 'btn' 
 

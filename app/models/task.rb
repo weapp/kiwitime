@@ -34,7 +34,7 @@ class Task < ActiveRecord::Base
 
   scope :icebox, lambda{ where(sprint_id: nil) }
   scope :by_sprint_id, lambda{|sprint_id| where(sprint_id: sprint_id)}
-  scope :by_sprint, lambda{|sprint| by_sprint_id(sprint.id)}
+  scope :by_sprint, lambda{|sprint| sprint ? by_sprint_id(sprint.id) : where(0)}
   scope :current, lambda{by_sprint Sprint.current}
   #(day && t.finish_at) ? ((t.finish_at < day) ? t.points : 0) : 0}.sum }
 

@@ -17,7 +17,7 @@ class ProjectsController < ApplicationController
   def show
     @sprint = Sprint.current
     @task_current_sprint = @project.tasks.current
-    @chart = current_chart
+    @chart = current_chart if @sprint
     respond_with(@project)
   end
 

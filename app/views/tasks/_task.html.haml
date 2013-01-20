@@ -26,9 +26,10 @@
 
   .btn-group.pull-right
     -if (defined? icebox) && icebox
-      %a.btn.btn-inverse{href: project_task_path(task.project, task, task: {"sprint_id" => @sprint.id}), "data-method" => :put}
-        %i.icon-arrow-up.icon-white
-        Up to current sprint
+      -if @sprint
+        %a.btn.btn-inverse{href: project_task_path(task.project, task, task: {"sprint_id" => @sprint.id}), "data-method" => :put}
+          %i.icon-arrow-up.icon-white
+          Up to current sprint
     -elsif task.status == "accept"
     -else
       - if task.finished
