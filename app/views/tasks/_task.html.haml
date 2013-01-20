@@ -51,7 +51,7 @@
 
       - else
         -if task.in_progress_for_user?(current_user)
-          %form{action: stop_project_task_path(task.project, task)}
+          %form{action: stop_project_task_path(task.project, task), class: "form-inline"}
             .input-append
               %input.input-span2{type: "text", name:"message", placeholder: 'Describe your job here'}
                 %button.btn.btn-danger{:type => "submit"}

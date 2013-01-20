@@ -12,6 +12,7 @@
 #  position    :integer
 #  sprint_id   :integer
 #  points      :float
+#  status      :string(255)
 #
 
 class Task < ActiveRecord::Base
@@ -23,6 +24,7 @@ class Task < ActiveRecord::Base
   belongs_to :sprint
 
   has_many :sittings, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_many :users,  :through => :sittings
 
 

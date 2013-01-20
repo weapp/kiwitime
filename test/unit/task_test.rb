@@ -12,6 +12,7 @@
 #  position    :integer
 #  sprint_id   :integer
 #  points      :float
+#  status      :string(255)
 #
 
 require 'test_helper'

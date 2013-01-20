@@ -24,6 +24,10 @@ gem 'gravatar_image_tag'
 
 # Gems Used only for assets and not required
 # in production environments by default.
+group :debug do
+  gem 'nested_scaffold'
+end
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'

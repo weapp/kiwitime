@@ -27,6 +27,7 @@ Kiwitime::Application.routes.draw do
     resources :tasks do
       post :sort, on: :collection
       resources :sittings
+      resources :comments, except: :index
       member do
         get 'finish'
         get 'reopen'

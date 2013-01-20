@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130118214359) do
+ActiveRecord::Schema.define(:version => 20130120120945) do
+
+  create_table "comments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.integer  "task_id"
+    t.string   "message"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "comments", ["project_id"], :name => "index_comments_on_project_id"
+  add_index "comments", ["task_id"], :name => "index_comments_on_task_id"
 
   create_table "projects", :force => true do |t|
     t.string   "name"

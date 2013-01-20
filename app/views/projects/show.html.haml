@@ -78,7 +78,8 @@
 = link_to 'Back', projects_path, class: 'btn' 
 
 #chart
-= render_chart(@chart, 'chart')
+-if @chart
+  = render_chart(@chart, 'chart')
 
 
 - if can? :index, Sprint

@@ -75,6 +75,11 @@ a:visited{
 	&.accept{background:#eeffcc;}
 }
 
+.comments .comment{
+	border-bottom:1px solid whitesmoke;
+	padding:.5ex .5em;
+}
+
 .handle{
 	position:absolute;
 	left:0px;
@@ -168,7 +173,8 @@ body{
 	@for $i from 1 through 12 {
 	  input.span#{$i}, textarea.span#{$i}, .uneditable-input.span#{$i} { width: $i*100px - 20px - 4px; }
 	}
-	
+}
 
-
+.form-inline{
+	margin:0;
 }

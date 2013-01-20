@@ -20,40 +20,72 @@
     %small
       .muted
         = @task.description
-.row
-  %p.span4
-    %i.icon-time
-    %b Created:
-    \#{time_ago_in_words(@task.created_at)} ago.
-  %p.span4
-    %i.icon-time
-    %b Time scope:
-    = pluralize(@task.points, 'point')
+/ .row
+/   %p.span4
+/     %i.icon-time
+/     %b Created:
+/     \#{time_ago_in_words(@task.created_at)} ago.
+/   %p.span4
+/     %i.icon-time
+/     %b Points:
+/     = pluralize(@task.points, 'point')
 
 /= link_to 'Sittings', project_task_sittings_path(@project, @task)
 
+.row
+  .span5.comments
+    %h4.page-header Comments
+    - @task.comments.each do |comment|
+      .row
+        .span5.comment
+          .pull-right
+            %a.btn.btn-danger.btn-mini{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_comment_path(@project, @task, comment), rel: "nofollow"}
+              %i.icon-remove.icon-white
+          %b
+            = comment.user
+          = comment.message
+          .muted
+            = comment.created_at.to_s(:short)
+    .form-actions
+      = form_for([@project, @task, @comment], html:{class: "form-inline"}) do |f|
+        =# form_for(@comment, :url => project_task_comments_path(@project, @task, @comment), :method => :post,  :html => { :class => "form-inline"}) do |f|
+        - if @comment.errors.any?
+          #error_explanation
+            %h2
+              = pluralize(@comment.errors.count, "error")
+              prohibited this comment from being saved:
+            %ul
+              - @comment.errors.full_messages.each do |msg|
+                %li= msg
 
-- unless @task.sittings.empty?
-  %br
-  .row
-    %b.span2
-      User
-    %b.span2
-      Day
-    %b.span1
-      Start
-    %b.span1
-      End
-  %br
-  =render @task.sittings
+        .field
+          = f.text_field :message, class: "span3"
+          = f.submit class: "span1", value: "Send"
+
+        -#  .field
+        -#    = f.label :init
+        -#    = f.date_select :init
+        -#  .field
+        -#    = f.label :finish
+        -#    = f.date_select :finish
+        -#  .field
+        -#    = f.label :notas
+        -#    = f.text_field :notas
+        -#  .actions
+        -#    = f.submit
 
 
-%br
-.pull-right
-  -if can? :create, @task.sittings.build
-    %a(href='#{params[:id]}/sittings/new' class='btn btn-primary') New Sitting
-%br
-%br
+
+  .span4
+    %h4.page-header Sittings
+    =render @task.sittings
+    .row
+      .pull-right
+        -if can? :create, @task.sittings.build
+          %a{href: new_project_task_sitting_path(@project, @task, @sitting), class:'btn btn-primary btn-small'} New Sitting
+
+
+
 
 
 

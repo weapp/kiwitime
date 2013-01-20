@@ -35,7 +35,7 @@ class ProjectsController < ApplicationController
     # Add Column Headers 
     data_table.new_column('string', 'Day' ) 
     data_table.new_column('number', 'Actual') 
-    data_table.new_column('number', 'Scope') 
+    data_table.new_column('number', 'Scope')
     data = (sprint.init..sprint.finish).collect do |d|
       [
         d.to_s(:short),
@@ -44,10 +44,12 @@ class ProjectsController < ApplicationController
       ]
     end
     
-    # Add Rows and Values 
-    data_table.add_rows(data)
-    option = { width: 800, height: 400, title: 'Company Performance', legend: {position: "none"} }
-    GoogleVisualr::Interactive::LineChart.new(data_table, option)
+    unless data[0][1].present?
+      # Add Rows and Values 
+      data_table.add_rows(data)
+      option = { width: 800, height: 400, title: 'Company Performance', legend: {position: "none"} }
+      GoogleVisualr::Interactive::LineChart.new(data_table, option)
+    end
   end
 
   def current_chart

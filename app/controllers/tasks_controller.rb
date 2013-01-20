@@ -26,6 +26,7 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    @comment = Comment.new
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @task }
