@@ -59,7 +59,7 @@ class Project < ActiveRecord::Base
         [
           d.to_s(:short),
           (Time.now >= d) ? (tp - tasks.select{|t| t.finished_at d }.collect{|t| t.points || 0}.sum) : nil,
-          (tp * (sprint.finish - d) / (sprint.days)),
+          (tp * (sprint.finish - d) / (sprint.days)).to_f,
         ]
       end
     end

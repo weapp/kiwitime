@@ -33,7 +33,7 @@ class Sprint < ActiveRecord::Base
       [
         d.to_s(:short),
         (Time.now >= d) ? (total_points - tasks.select{|t| t.finished_at d }.collect{|t| t.points || 0}.sum) : nil,
-        (total_points * (finish - d) / days),
+        (total_points * (finish - d) / days).to_f,
       ]
   	end
   end
