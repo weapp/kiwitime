@@ -19,7 +19,7 @@
 
     %small
       .muted
-        = @task.description
+        = raw sanitize mkd.render @task.description
 / .row
 /   %p.span4
 /     %i.icon-time
