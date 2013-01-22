@@ -17,7 +17,7 @@ class Sprint < ActiveRecord::Base
   scope :current_sprint, lambda {where('sprints.init < ?', Time.now ).where( 'sprints.finish > ?', Time.now)}
 
   def to_s
-  	"#{init} - #{finish}"
+  	"#{init.to_s(:long)} - #{finish.to_s(:long)}"
   end
 
   def self.current

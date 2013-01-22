@@ -97,9 +97,10 @@ class TasksController < ApplicationController
     redirect_to :back, notice: 'Task stopped and finished.'
   end
 
-  def reopen
+  def reject
+    @task.status = "reject"
     @task.finished = false
-    @task.sprint = nil
+    #@task.sprint = nil
     @task.save
     redirect_to :back, notice: 'Task is re-openend'
   end

@@ -30,7 +30,7 @@ Kiwitime::Application.routes.draw do
       resources :comments, except: :index
       member do
         get 'finish'
-        get 'reopen'
+        get 'reject'
         get 'start'
         get 'stop'
         get 'up'
