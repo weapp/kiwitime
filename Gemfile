@@ -20,6 +20,7 @@ gem 'friendly_id'
 gem "acts_as_list"
 gem "google_visualr", "~> 2.1.0"
 
+gem 'mysql2'
 gem 'gravatar_image_tag'
 
 # Gems Used only for assets and not required
