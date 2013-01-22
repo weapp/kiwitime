@@ -6,9 +6,10 @@
     .grey-points
       %span.actual
         = task.points ? "%g" % task.points : "?"
-      %span.options
-        - [0.0, 0.5, 1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 20.0, 40.0].each do |n|
-          = link_to "%g" % n, project_task_path(task.project, task, task: {"points" => n}), :method => :put, :class => "input-grey-points"
+      -if task.status != 'accept'
+        %span.options
+          - [0.0, 0.5, 1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 20.0, 40.0].each do |n|
+            = link_to "%g" % n, project_task_path(task.project, task, task: {"points" => n}), :method => :put, :class => "input-grey-points"
 
   .span1.mini-avatars
     - task.users.uniq.each do |user|
