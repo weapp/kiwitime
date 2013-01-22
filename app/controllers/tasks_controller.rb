@@ -102,7 +102,11 @@ class TasksController < ApplicationController
     @task.finished = false
     #@task.sprint = nil
     @task.save
-    redirect_to :back, notice: 'Task is re-openend'
+    comment = @task.comments.build
+    comment.message = "Reject!"
+    comment.user = current_user
+    comment.save
+    redirect_to :back, notice: 'Task is rejected'
   end
 
   def up
