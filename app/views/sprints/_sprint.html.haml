@@ -1,0 +1,31 @@
+.row
+  .span9
+    %h4.page-header
+      = link_to sprint, sprint
+      %small
+        = link_to 'Edit', edit_sprint_path(sprint)
+        |
+        = link_to 'Destroy', sprint, method: :delete, data: { confirm: 'Are you sure?' }
+
+    .workings
+      .row
+        - (sprint.init..sprint.finish).each do |d|
+          .span2
+            - if sprint.workings_days.include? d
+              .alert.alert-success
+                = d.to_s(:short)
+                - w = sprint.workings.select{|w| w.day == d}.first
+                = "(%g points)" % w.points if w.points
+                = link_to 'Destroy', [sprint, w], method: :delete, data: { confirm: 'Are you sure?' }
+            - else
+              .alert.alert-error
+                = d.to_s(:short)
+                =# sprint_workings_path(sprint)
+                = form_for([sprint, sprint.workings.build], html:{class: "form-inline"}) do |f|
+                  = f.hidden_field :day, value: d
+                  = f.number_field :points, step:'0.5', min: '0', class: 'span1'
+                  = f.submit :send
+
+                (add)
+      = link_to 'new working', new_sprint_working_path(sprint)
+

@@ -13,6 +13,7 @@
 #  sprint_id   :integer
 #  points      :float
 #  status      :string(255)
+#  category    :string(255)      default("feature")
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

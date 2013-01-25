@@ -1,19 +1,5 @@
-%h1 Listing sprints
-%table
-  %tr
-    %th Init
-    %th Finish
-    %th Notas
-    %th
-    %th
-    %th
-  - @sprints.each do |sprint|
-    %tr
-      %td= sprint.init
-      %td= sprint.finish
-      %td= sprint.notas
-      %td= link_to 'Show', sprint
-      %td= link_to 'Edit', edit_sprint_path(sprint)
-      %td= link_to 'Destroy', sprint, method: :delete, data: { confirm: 'Are you sure?' }
-%br/
+%h2.page-header Sprints
+
+=render @sprints
+
 = link_to 'New Sprint', new_sprint_path

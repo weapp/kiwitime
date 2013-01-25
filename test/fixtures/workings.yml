@@ -1,0 +1,20 @@
+# == Schema Information
+#
+# Table name: workings
+#
+#  id         :integer          not null, primary key
+#  sprint_id  :integer
+#  day        :date
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id_sprint: 1
+  day: 2013-01-25
+
+two:
+  id_sprint: 1
+  day: 2013-01-25

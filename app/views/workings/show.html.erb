@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Day:</b>
+  <%= @working.day %>
+</p>
+
+
+<%= link_to 'Edit', edit_sprint_working_path(@sprint, @working) %> |
+<%= link_to 'Back', (sprint_workings_path @sprint) %>

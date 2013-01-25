@@ -13,6 +13,7 @@
 class Sprint < ActiveRecord::Base
   attr_accessible :finish, :init, :notas
   has_many :tasks
+  has_many :workings
 
   scope :current_sprint, lambda {where('sprints.init < ?', Time.now ).where( 'sprints.finish > ?', Time.now)}
 
@@ -21,7 +22,7 @@ class Sprint < ActiveRecord::Base
   end
 
   def self.current
-  	@current ||= Sprint.current_sprint.first
+  	Sprint.current_sprint.first
   end
 
   def total_points
@@ -54,6 +55,10 @@ class Sprint < ActiveRecord::Base
 
   def days
   	finish - init
+  end
+
+  def workings_days
+    workings.collect {|w| w.day}
   end
 
 end

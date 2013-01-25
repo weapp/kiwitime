@@ -11,7 +11,7 @@ class Ability
     elsif !user.new_record?
       can :manage, User, :id => user.id
       can :read, :all
-      can :manage, [Project, Task,  Sitting, Comment, Sprint]
+      can :manage, [Project, Task,  Sitting, Comment, Sprint, Working]
     else
       #can :manage, :all
     end
