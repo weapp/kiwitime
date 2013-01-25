@@ -25,16 +25,24 @@ class Sprint < ActiveRecord::Base
   	Sprint.current_sprint.first
   end
 
-  def total_points
-    @total_points ||= (tasks.collect{|t| t.points||0}).sum
+  def total_task_points
+    (tasks.collect{|t| t.points||0}).sum
+  end
+
+  def total_working_points
+    (workings.collect{|w| w.points||0}).sum
   end
 
   def stats
-  	@stats ||= (init..finish).collect do |d|
+    sum_p = 0
+  	@stats ||= (workings).collect do |w|
+      d = w.day
+      p = w.points || 0
+      sum_p += p
       [
-        d.to_s(:short),
-        (Time.now >= d) ? (total_points - tasks.select{|t| t.finished_at d }.collect{|t| t.points || 0}.sum) : nil,
-        (total_points * (finish - d) / days).to_f,
+        d.strftime("%a, %d %b"),
+        (Time.now >= d) ? (total_working_points - tasks.select{|t| t.finished_at d }.collect{|t| t.points || 0}.sum) : nil,
+        total_working_points - sum_p,
       ]
   	end
   end

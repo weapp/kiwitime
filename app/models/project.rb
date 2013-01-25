@@ -55,11 +55,16 @@ class Project < ActiveRecord::Base
   def stats(sprint)
     if sprint
       tp = total_points_by_sprint(sprint)
-      (sprint.init..sprint.finish).collect do |d|
+      workings_days = sprint.workings
+      days = workings_days.count
+      n = 0
+      (workings_days).collect do |w|
+        n += 1
+        d = w.day
         [
-          d.to_s(:short),
+          d.strftime("%a, %d %b"),
           (Time.now >= d) ? (tp - tasks.select{|t| t.finished_at d }.collect{|t| t.points || 0}.sum) : nil,
-          (tp * (sprint.finish - d) / (sprint.days)).to_f,
+          (tp * (days - n) / (days)).to_f,
         ]
       end
     end
