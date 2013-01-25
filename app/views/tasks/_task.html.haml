@@ -8,7 +8,8 @@
         = task.points ? "%g" % task.points : "?"
       -if task.status != 'accept'
         %span.options
-          - [0.0, 0.5, 1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 20.0, 40.0].each do |n|
+          = link_to "?", project_task_path(task.project, task, task: {"points" => nil}), :method => :put, :class => "input-grey-points"
+          - Task::POINTS.each do |n|
             = link_to "%g" % n, project_task_path(task.project, task, task: {"points" => n}), :method => :put, :class => "input-grey-points"
 
   .span1.mini-avatars
@@ -16,7 +17,8 @@
       = gravatar_for user, size:20
   .span4.name
     %a{href:project_task_path(task.project, task)}
-      =task.name.truncate(60)
+      = image_tag("#{task.category||'feature'}.png", alt: task.category)
+      = task.name.truncate(60)
       -# %small (#{task.sittings.sum{|s| s.delta}} of #{pluralize(task.points, 'point')})
     -if (params[:controller] == "projects")
       %small= task.description.truncate(60, separator: ' ')

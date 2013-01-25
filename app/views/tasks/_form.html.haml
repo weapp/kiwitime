@@ -19,8 +19,11 @@
   .field
     = f.label :points
     =# f. :points, class: 'span1'
-    = f.select(:points, [0.0, 0.5, 1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 20.0, 40.0].collect{|n| ["%g" % n, n]}, {:include_blank => true})
+    = f.select(:points, Task::POINTS.collect{|n| ["%g" % n, n]}, {:include_blank => true})
     points
+  .field
+    = f.label :category
+    = f.select(:category, Task::CATEGORIES)
   .field
     %label.checkbox
       = f.check_box :finished

@@ -18,7 +18,10 @@
 class Task < ActiveRecord::Base
   acts_as_list
 
-  attr_accessible :description, :finished, :name, :project_id, :points, :sprint_id
+  POINTS = [0.0, 0.5, 1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 20.0, 40.0]
+  CATEGORIES = [ :feature, :bug, :chore, :release ]
+
+  attr_accessible :description, :finished, :name, :project_id, :points, :sprint_id, :category
 
   belongs_to :project
   belongs_to :sprint
@@ -28,7 +31,9 @@ class Task < ActiveRecord::Base
   has_many :users,  :through => :sittings
 
 
+  validates :name, presence: true
   validates :project_id, presence: true
+  validates :points, :inclusion => { :in => [nil, 0, 0.0, "0"]}, :if => :no_puntuable
 
   default_scope :order => 'tasks.position ASC'
 
@@ -58,4 +63,7 @@ class Task < ActiveRecord::Base
     finish_at && finish_at <= day
   end
 
+  def no_puntuable
+    ["chore", "bug", "release"].include?(category)
+  end
 end
