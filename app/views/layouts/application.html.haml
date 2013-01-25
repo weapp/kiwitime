@@ -23,7 +23,7 @@
               %li
                 %a{:href => user_path(current_user)}
                   =gravatar_for current_user, size: 30
-                  Profile
+                  #{current_user.name}
               %li
                 %a{:href => edit_user_path(current_user)} Settings
               %li
@@ -52,6 +52,7 @@
               - if can? :index, Sprint
                 %li
                   = link_to "Sprints", sprints_path
+
   
           - if can? :index, Sprint
             %h5 Recent Sprints
@@ -59,6 +60,13 @@
               %ul.nav.nav-tabs.nav-stacked
                 - Sprint.all.each do |sprint|
                   %li= link_to sprint, sprint_path(sprint)
+
+          - if can? :index, Project
+            %h5 Projects
+            %nav
+              %ul.nav.nav-tabs.nav-stacked
+                - Project.all.each do |project|
+                  %li= link_to project, project_path(project)
 
         .span9
           %p#notice= notice

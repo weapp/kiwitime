@@ -25,6 +25,7 @@ class SittingsController < ApplicationController
   # GET /sittings/new
   # GET /sittings/new.json
   def new
+    @sitting.user = current_user
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @sitting }
@@ -38,10 +39,6 @@ class SittingsController < ApplicationController
   # POST /sittings
   # POST /sittings.json
   def create
-    #@sitting = current_user.sittings.build(params[:sitting])
-    #@sitting = Sitting.new(params[:sitting])
-    @sitting.user = current_user
-
     respond_to do |format|
       if @sitting.save
         format.html { redirect_to [@project, @task], notice: 'Sitting was successfully created.' }
