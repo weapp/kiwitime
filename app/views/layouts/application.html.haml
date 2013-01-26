@@ -40,40 +40,46 @@
 
     .container
       .row
-        .span3
-          %nav
-            %ul.nav.nav-tabs.nav-stacked
-              - if can? :read, User
-                %li
-                  = link_to "Users", users_path
-              - if can? :read, Project
-                %li
-                  = link_to "Projects", projects_path
-              - if can? :index, Sprint
-                %li
-                  = link_to "Sprints", sprints_path
-
-  
-          - if can? :index, Sprint
-            %h5 Recent Sprints
+        - if @fullpage
+          .span12
+            %p#notice= notice
+            %p#alert= alert
+            = yield
+        - else
+          .span3
             %nav
               %ul.nav.nav-tabs.nav-stacked
-                - Sprint.all.each do |sprint|
-                  %li= link_to sprint, sprint_path(sprint)
+                - if can? :read, User
+                  %li
+                    = link_to "Users", users_path
+                - if can? :read, Project
+                  %li
+                    = link_to "Projects", projects_path
+                - if can? :index, Sprint
+                  %li
+                    = link_to "Sprints", sprints_path
 
-          - if can? :index, Project
-            %h5 Projects
-            %nav
-              %ul.nav.nav-tabs.nav-stacked
-                - Project.all.each do |project|
-                  %li= link_to project, project_path(project)
+    
+            - if can? :index, Sprint
+              %h5 Recent Sprints
+              %nav
+                %ul.nav.nav-tabs.nav-stacked
+                  - Sprint.all.each do |sprint|
+                    %li= link_to sprint, sprint_path(sprint)
 
-        .span9
-          %p#notice= notice
-          %p#alert= alert
-          / - flash.each do |k, f|
-          /   \#{k} : #{f}
-          = yield
+            - if can? :index, Project
+              %h5 Projects
+              %nav
+                %ul.nav.nav-tabs.nav-stacked
+                  - Project.all.each do |project|
+                    %li= link_to project, project_path(project)
+
+          .span9
+            %p#notice= notice
+            %p#alert= alert
+            / - flash.each do |k, f|
+            /   \#{k} : #{f}
+            = yield
           
     %footer
       .container
@@ -96,3 +102,14 @@
     %script{:src => "https://raw.github.com/twitter/bootstrap/master/js/bootstrap-carousel.js"}
     %script{:src => "https://raw.github.com/twitter/bootstrap/master/js/bootstrap-typeahead.js"}
     -# javascript_include_tag "bootstrap-datepicker"
+
+
+
+-#    - if has_content?(:sidebar)
+-#          .span3
+-#            = yield(:sidebar)
+-#          .span9
+-#            = yield
+-#        - else
+-#          .span12
+-#          = yield

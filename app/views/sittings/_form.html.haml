@@ -28,6 +28,6 @@
     .field
       = f.label :user_id, "User"
       = f.select(:user_id, User.all.collect{|s| [s, s.id]}, :prompt => true)
-
+ 
     .actions
       = f.submit
