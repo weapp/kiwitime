@@ -17,4 +17,5 @@
     .pull-right.muted
       = sitting.day && sitting.day.to_s(:short)
       #{!sitting.start.nil? && sitting.start.strftime("%H:%M")} -
-      #{( sitting.in_progress? ? 'in progress' : pluralize(sitting.delta, 'minute'))}
+      #{( sitting.in_progress? ? 'in progress' : distance_of_time_in_words(sitting.delta.minutes))}
+      -#pluralize(sitting.delta, 'minute')
