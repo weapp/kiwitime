@@ -22,7 +22,7 @@ class Task < ActiveRecord::Base
   POINTS = [0.0, 0.5, 1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 20.0, 40.0]
   CATEGORIES = [ :feature, :bug, :chore, :release ]
 
-  attr_accessible :description, :finished, :name, :project_id, :points, :sprint_id, :category
+  attr_accessible :id,:description, :finished, :name, :project_id, :points, :sprint_id, :category
 
   belongs_to :project
   belongs_to :sprint
