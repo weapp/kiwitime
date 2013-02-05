@@ -15,7 +15,7 @@
     = f.text_area :description, :size => "25x5", class: 'span6'
   .field
     = f.label :sprint_id, "Sprint"
-    = f.select(:sprint_id, Sprint.all.collect{|s| [s, s.id]}, :prompt => true)
+    = f.select(:sprint_id, Sprint.all.collect{|s| [s, s.id]}, :prompt => true, :include_blank => 'Icebox')
   .field
     = f.label :points
     =# f. :points, class: 'span1'

@@ -6,7 +6,7 @@
   // Sorting the list
   
   $(document).ready(function(){
-     $('#tasks').sortable({
+     $('.sortable').sortable({
          placeholder: "ui-state-highlight",
          axis: 'y',
          dropOnEmpty: false,
@@ -16,12 +16,13 @@
          opacity: 0.4,
          scroll: true,
          update: function(){
+            var el = this;
             $.ajax({
                 type: 'post',
-                data: $('#tasks').sortable('serialize'),
+                data: $(el).sortable('serialize'),
                 dataType: 'script',
                 complete: function(request){
-                   $('#tasks').effect('highlight');
+                   $(el).effect('highlight');
                 },
                    url: '#{sort_project_tasks_path(@project)}'})
                 }
@@ -53,7 +54,7 @@
     -if @sprint
       %small (#{@sprint})
   -if @task_current_sprint.present?
-    #tasks
+    #tasks.sortable
       =render @task_current_sprint, sortable: true
     .pull-right
       .grey-points.sum
@@ -73,8 +74,8 @@
     
 %h3 icebox
 -if @project.tasks.icebox.present?
-  #icebox
-    =render @project.tasks.icebox, icebox: true
+  #icebox.sortable
+    =render @project.tasks.icebox, icebox: true, sortable: true
 -else
   .row.task
     No task here

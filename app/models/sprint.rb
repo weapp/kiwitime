@@ -16,6 +16,7 @@ class Sprint < ActiveRecord::Base
   has_many :workings
 
   scope :current_sprint, lambda {where('sprints.init < ?', Time.now ).where( 'sprints.finish > ?', Time.now)}
+  default_scope :order => 'sprints.init DESC'
 
   def to_s
   	"#{init.to_s(:long)} - #{finish.to_s(:long)}"
@@ -48,7 +49,7 @@ class Sprint < ActiveRecord::Base
   end
 
   def chart
-    if stats[0][1].present?
+    if stats && stats[0] && stats[0][1].present?
       data_table = GoogleVisualr::DataTable.new
       # Add Column Headers 
       data_table.new_column('string', 'Day' ) 
