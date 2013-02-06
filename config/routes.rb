@@ -17,6 +17,8 @@ Kiwitime::Application.routes.draw do
 
   resources :users, path: 'u' do
     get 'page/:page' => :index, on: :collection
+    post 'rol' => :set_rol, on: :member
+    delete 'rol' => :set_rol, on: :member
   end
 
   #resources :sessions, only: [:new, :create, :destroy]

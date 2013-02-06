@@ -11,6 +11,7 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'cancan'
+gem "rolify"
 gem 'figaro'
 
 gem 'http_accept_language'
