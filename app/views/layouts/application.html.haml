@@ -55,8 +55,7 @@
       .row
         - if @fullpage
           .span12
-            %p#notice= notice
-            %p#alert= alert
+            = render 'shared/alerts'
             = yield
         - else
           .span3
@@ -87,16 +86,13 @@
                     %li= link_to sprint, sprint_path(sprint)
 
           .span9
-            %p#notice= notice
-            %p#alert= alert
-            / - flash.each do |k, f|
-            /   \#{k} : #{f}
+            = render 'shared/alerts'
             = yield
           
     %footer
       .container
         %hr
-        © Batkiwi 2012
+        © Batkiwi 2012 - #{Time.now.year}
         %br
         %br
         %br
