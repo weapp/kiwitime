@@ -75,7 +75,7 @@
               %h5 Projects
               %nav
                 %ul.nav.nav-tabs.nav-stacked
-                  - Project.all.each do |project|
+                  - Project.accessible_by(current_ability).each do |project|
                     %li= link_to project, project_path(project)
     
             - if can? :index, Sprint

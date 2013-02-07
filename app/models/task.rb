@@ -4,7 +4,7 @@
 #
 #  id          :integer          not null, primary key
 #  name        :string(255)
-#  description :string(255)
+#  description :text
 #  project_id  :integer
 #  finished    :boolean
 #  created_at  :datetime         not null
@@ -20,7 +20,8 @@ class Task < ActiveRecord::Base
   acts_as_list
 
   POINTS = [0.0, 0.5, 1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 20.0, 40.0]
-  CATEGORIES = [ :feature, :bug, :chore, :release ]
+  #CATEGORIES = [ :feature, :bug, :chore, :release ]
+  CATEGORIES = [ :feature, :bug, :chore ]
 
   attr_accessible :description, :finished, :name, :project_id, :points, :sprint_id, :category
 

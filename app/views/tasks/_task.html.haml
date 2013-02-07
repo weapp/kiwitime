@@ -2,21 +2,9 @@
   - if (defined? sortable) && sortable
     .handle
   - #%div{class: task.finished && "row muted" || "row"}
-  .pull-right
-    .grey-points
-      %span.actual
-        - if ["release", "chore", "bug"].exclude?(task.category)
-          = task.points ? "%g" % task.points : "?"
-          - if task.status != 'accept' 
-            %span.options
-              = link_to "?", project_task_path(task.project, task, task: {"points" => nil}), :method => :put, :class => "input-grey-points"
-              - Task::POINTS.each do |n|
-                = link_to "%g" % n, project_task_path(task.project, task, task: {"points" => n}), :method => :put, :class => "input-grey-points"
-        - else
-          &nbsp;
 
   .span1.mini-avatars
-    - task.users.uniq.each do |user|
+    - task.users.accessible_by(current_ability).uniq.each do |user|
       = gravatar_for user, size:20
   .span4.name
     %a{href:project_task_path(task.project, task)}
@@ -30,56 +18,63 @@
     -if task.finished
       %i.icon-ok.icon-gray
 
-  .btn-group.pull-right
-    -if (defined? icebox) && icebox
-      -if @sprint
-        %a.btn.btn-inverse{href: project_task_path(task.project, task, task: {"sprint_id" => @sprint.id}), "data-method" => :put}
-          %i.icon-arrow-up.icon-white
-          Up to current sprint
-    -elsif task.status == "accept"
-    -else
+  .pull-right.trash
+    %a{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_path(@project, task), rel: "nofollow"}
+      %i.icon-trash
+
+  .pull-right
+    .grey-points
+      %span.actual
+        - if ["release", "chore", "bug"].exclude?(task.category)
+          = task.points ? "%g" % task.points : "?"
+          - if  can? :update, @task && task.status != 'accept' 
+            %span.options
+              = link_to "?", project_task_path(task.project, task, task: {"points" => nil}), :method => :put, :class => "input-grey-points"
+              - Task::POINTS.each do |n|
+                = link_to "%g" % n, project_task_path(task.project, task, task: {"points" => n}), :method => :put, :class => "input-grey-points"
+        - else
+          &nbsp;
+
+
+  -if can? :update, @task
+
+    .btn-group.pull-right
+      -if (defined? icebox) && icebox
+        -if @sprint
+          %a.btn.btn-inverse{href: project_task_path(task.project, task, task: {"sprint_id" => @sprint.id}), "data-method" => :put}
+            %i.icon-arrow-up.icon-white
+            Up to current sprint
+      -elsif task.status == "accept"
+      -else
+        - if task.finished
+        - else
+          -if task.in_progress_for_user?(current_user)
+            %form{action: stop_project_task_path(task.project, task), class: "form-inline"}
+              .input-append
+                %input.input-span2{type: "text", name:"message", placeholder: 'Describe your job here'}
+                  %button.btn.btn-danger{:type => "submit"}
+                    %i.icon-stop.icon-white
+                    stop
+          -else
+            %a.btn.btn-success(href='#{start_project_task_path(task.project, task)}')
+              %i.icon-play.icon-white
+              Start
+            %a.btn.btn-inverse(href='#{finish_project_task_path(task.project, task)}')
+              %i.icon-check.icon-white
+              /Finish Him!
+              Deliver
+
+  .pull-right
+    -if task.status != "accept"
       - if task.finished
-        /%a.btn.btn-inverse{href:reopen_project_task_path(task.project, task)}
-        /  %i.icon-repeat.icon-white
-        /  Re-open
-        %a.btn.btn-success(href='#{accept_project_task_path(task.project, task)}')
-          %i.icon-ok-circle.icon-white
-          Accept
-        %a.btn.btn-danger(href='#{reject_project_task_path(task.project, task)}')
-          %i.icon-ban-circle.icon-white
-          Reject
+        -if can? :accept, task
+          /%a.btn.btn-inverse{href:reopen_project_task_path(task.project, task)}
+          /  %i.icon-repeat.icon-white
+          /  Re-open
+          %a.btn.btn-success(href='#{accept_project_task_path(task.project, task)}')
+            %i.icon-ok-circle.icon-white
+            Accept
+          %a.btn.btn-danger(href='#{reject_project_task_path(task.project, task)}')
+            %i.icon-ban-circle.icon-white
+            Reject
 
-      - else
-        -if task.in_progress_for_user?(current_user)
-          %form{action: stop_project_task_path(task.project, task), class: "form-inline"}
-            .input-append
-              %input.input-span2{type: "text", name:"message", placeholder: 'Describe your job here'}
-                %button.btn.btn-danger{:type => "submit"}
-                  %i.icon-stop.icon-white
-                  stop
-        -else
-          %a.btn.btn-success(href='#{start_project_task_path(task.project, task)}')
-            %i.icon-play.icon-white
-            Start
-          %a.btn.btn-inverse(href='#{finish_project_task_path(task.project, task)}')
-            %i.icon-check.icon-white
-            /Finish Him!
-            Deliver
-
-
-
-    /  .btn.btn-link{style:'width:3px;padding:2px 0;background:#AAA'}
-    /    &nbsp;
-    /%a.btn(href='#{project_task_path(@project, task)}/sittings/new')
-    /  New Sitting
-    /  %i.icon-plus
-
-
-    / %a.btn.btn-warning(href='#{edit_project_task_path(@project, task)}')
-    /   /Edit
-    /   %i.icon-pencil
-    / =#%td= link_to "×", [@project, task], method: :delete, data: { confirm: 'Are you sure?' }
-    / &nbsp;
-    / %a.btn.btn-danger{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_path(@project, task), rel: "nofollow"}
-    /   /Delete
-    /   %i.icon-remove

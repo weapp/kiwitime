@@ -41,13 +41,14 @@
           / - monday = Time.now.to_date - ((Time.now.wday + 6) % 7).day 
           / = link_to "Report last week", report_project_path(@project, @task, week: monday - 1.week), target:"_blank", class:'btn'
           / = link_to "Report of current week", report_project_path(@project, @task, week: monday), target:"_blank", class:'btn'
-        .btn-group
-          %a.btn.btn-warning{href: edit_project_path(@project)}
-            %i.icon-pencil.icon-white
-            Edit
-          %a.btn.btn-danger{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_path(@project), rel: "nofollow"}
-            %i.icon-remove.icon-white
-            Delete
+        -if can? :manage, @project
+          .btn-group
+            %a.btn.btn-warning{href: edit_project_path(@project)}
+              %i.icon-pencil.icon-white
+              Edit
+            %a.btn.btn-danger{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_path(@project), rel: "nofollow"}
+              %i.icon-remove.icon-white
+              Delete
 
 
 .row
@@ -59,6 +60,7 @@
             %a.btn{href:user_path(user)}= user
             =link_to "&times;".html_safe(), rol_project_path(@project, user: user, rol: :product_owner), method: :delete, class: "btn"
           &nbsp;
+
 
       %form{"accept-charset" => "UTF-8", :action => rol_project_path(@project), :method => "post", :class=> "form-inline pull-left"}
         %input{:name => "utf8", :type => "hidden", :value => "✓"}
@@ -82,6 +84,8 @@
       .grey-points.sum
         .sum-label
           Total:
+        = "%g" % @task_current_sprint.collect{|t| t.finished ? t.points || 0 : 0}.sum
+        \ /
         = "%g" % @task_current_sprint.collect{|t| t.points || 0}.sum
   -else
     .row.task
@@ -90,10 +94,11 @@
 -else
   %h3
     No Current Sprint
-  %center.form-actions
-    %a.btn.btn-primary.btn-large{href: new_sprint_path}
-      %span.span4 New Sprint
-    
+  -if can? :create, Sprint
+    %center.form-actions
+      %a.btn.btn-primary.btn-large{href: new_sprint_path}
+        %span.span4 New Sprint
+      
 %h3 icebox
 -if @project.tasks.icebox.present?
   #icebox.sortable
@@ -101,8 +106,19 @@
 -else
   .row.task
     No task here
-  
-  
+
+.row
+  =simple_form_for((@task || :task), url:suggest_project_tasks_path(@project), html: {class: "form-box span6 offset1"}) do |f|
+    Tarea: 
+    = f.text_field :name, class: 'span3'
+    .pull-right
+      = f.select(:category, Task::CATEGORIES )
+    %label
+      Description:
+    = f.text_area :description, :size => "25x3", class: 'span6'
+    .form-actions
+      .pull-right
+        = f.submit class:'btn btn-primary'
 
 %br
 .pull-right

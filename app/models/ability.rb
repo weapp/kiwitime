@@ -3,11 +3,21 @@ class Ability
 
   def initialize(user)
 
-    alias_action  :report, :show, :index, :to=> :read
+    alias_action :show, :index, :to=> :read
 
     user ||= User.new # guest user (not logged in)
+
+
+
+
     if user.has_role? :admin
       can :manage, :all
+    elsif user.has_role? :approved
+
+      owner = Project.with_role(:product_owner, user).map{ |project| project.id }
+      can :read, Project, :id => owner
+      can [:suggest, :destroy, :sort, :read, :accept, :reject], Task, :project_id => owner
+
     elsif !user.new_record?
       #can :index, Project
     elsif false
