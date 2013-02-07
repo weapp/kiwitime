@@ -29,6 +29,8 @@ Kiwitime::Application.routes.draw do
 
 
   resources :projects, path: 'p' do
+    post 'rol' => :set_rol, on: :member
+    delete 'rol' => :delete_rol, on: :member
     resources :tasks do
       post :sort, on: :collection
       resources :sittings

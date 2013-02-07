@@ -33,6 +33,7 @@
 .page-header
   %h2
     = @project.name
+
     %small
       .pull-right
         -if can? :report, @project
@@ -47,6 +48,27 @@
           %a.btn.btn-danger{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_path(@project), rel: "nofollow"}
             %i.icon-remove.icon-white
             Delete
+
+
+.row
+  .span9
+    -if can? :manage, User
+      - @project.product_owners.each do |user|
+        .pull-left
+          .btn-group
+            %a.btn{href:user_path(user)}= user
+            =link_to "&times;".html_safe(), rol_project_path(@project, user: user, rol: :product_owner), method: :delete, class: "btn"
+          &nbsp;
+
+      %form{"accept-charset" => "UTF-8", :action => rol_project_path(@project), :method => "post", :class=> "form-inline pull-left"}
+        %input{:name => "utf8", :type => "hidden", :value => "✓"}
+        %input{:name => "authenticity_token", :type => "hidden", :value => form_authenticity_token}
+        %select#rol_user{:name => "user"}
+          - User.all.each do |user|
+            %option{:value => user.id}= user
+        %input#rol_rol{:name => "rol", :type => "hidden", :value => "product_owner"}
+          %input{:name => "commit", :type => "submit", :value => "Add Product Owner", class: "btn"}
+
 
 -if @sprint
   %h3

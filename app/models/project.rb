@@ -71,5 +71,9 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def product_owners
+    rol = roles.find_by_name("product_owner")
+    rol ? rol.users : []
+  end
 
 end

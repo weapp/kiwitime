@@ -10,7 +10,7 @@
 
 
     -# Role.global.each do |rol|
-    - [:admin, :scrum_master, :product_owner, :developer, :approved].each do |rol|
+    - [:admin, :scrum_master, :developer, :approved].each do |rol|
       |
       -if user.has_role? rol
         = link_to rol.to_s.humanize, rol_user_path(user, rol: rol), method: :delete, class: "label label-success"

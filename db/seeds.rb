@@ -11,6 +11,5 @@ u = User.find_or_create_by_name({name: 'admin', email: 'admin@kiwitime.com', pas
 
 u.add_role :admin
 u.add_role :scrum_master
-u.add_role :product_owner
 u.add_role :developer
 u.add_role :approved
