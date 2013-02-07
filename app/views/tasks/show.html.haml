@@ -2,12 +2,14 @@
   %h2
     %small
       .btn-group.pull-right
-        %a.btn.btn-warning{href: edit_project_task_path(@project, @task)}
-          %i.icon-pencil.icon-white
-          Edit
-        %a.btn.btn-danger{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_path(@project, @task), rel: "nofollow"}
-          %i.icon-remove.icon-white
-          Delete
+        -if can? :update, @task
+          %a.btn.btn-warning{href: edit_project_task_path(@project, @task)}
+            %i.icon-pencil.icon-white
+            Edit
+        -if can? :destroy, @task
+          %a.btn.btn-danger{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_path(@project, @task), rel: "nofollow"}
+            %i.icon-remove.icon-white
+            Delete
     %span{class:('completedtask' if @task.finished)}
       \#{@task.name}
       /%i.icon-ok{style:'opacity:0.3'}
@@ -20,18 +22,6 @@
     %small
       .muted
         = raw sanitize mkd.render @task.description
-/ .row
-/   %p.span4
-/     %i.icon-time
-/     %b Created:
-/     \#{time_ago_in_words(@task.created_at)} ago.
-/   %p.span4
-/     %i.icon-time
-/     %b Points:
-/     = pluralize(@task.points, 'point')
-
-/= link_to 'Sittings', project_task_sittings_path(@project, @task)
-
 .row
   .span5.comments
     %h4.page-header Comments
@@ -76,13 +66,14 @@
 
 
 
-  .span4
-    %h4.page-header Sittings
-    =render @task.sittings
-    .row
-      .pull-right
-        -if can? :create, @task.sittings.build
-          %a{href: new_project_task_sitting_path(@project, @task, @sitting), class:'btn btn-primary btn-small'} New Sitting
+  -if can? :index, Sitting
+    .span4
+      %h4.page-header Sittings
+      =render @task.sittings
+      .row
+        .pull-right
+          -if can? :create, @task.sittings.build
+            %a{href: new_project_task_sitting_path(@project, @task, @sitting), class:'btn btn-primary btn-small'} New Sitting
 
 
 
