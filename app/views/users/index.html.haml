@@ -1,15 +1,5 @@
 .list
-  - @users.each do |user|
-    .item
-      = gravatar_for user
-
-      %a{href:user_path(user)}
-        = user
-      -if can? :manage, user
-        ="<#{user.email}>"
-        = link_to 'Edit', edit_user_path(user)
-        |
-        = link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
+  = render @users
 
 = will_paginate @collection, :renderer => BootstrapPagination::Rails
 

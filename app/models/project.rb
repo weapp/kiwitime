@@ -11,6 +11,7 @@
 class Project < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name
+  resourcify
 
   attr_accessible :name
   has_many :tasks, dependent: :destroy
@@ -70,5 +71,9 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def product_owners
+    rol = roles.find_by_name("product_owner")
+    rol ? rol.users : []
+  end
 
 end

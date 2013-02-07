@@ -37,13 +37,25 @@
               %li
                 = link_to "Sign up/in with Google", user_omniauth_authorize_path(:google_oauth2)
 
+              %li
+                = link_to "Sign up", new_user_registration_path, class: "sign"
+              %li
+                %a or
+              %li
+                = link_to "sign in", new_user_session_path, class: "sign"
+
+                =# link_to (image_tag "github_32.png"), user_omniauth_authorize_path(:github)
+                \ 
+                =# link_to (image_tag "google_32.png"), user_omniauth_authorize_path(:google_oauth2)
+                \ 
+                =# link_to (image_tag "twitter_32.png"), user_omniauth_authorize_path(:twitter)
+
 
     .container
       .row
         - if @fullpage
           .span12
-            %p#notice= notice
-            %p#alert= alert
+            = render 'shared/alerts'
             = yield
         - else
           .span3
@@ -59,6 +71,12 @@
                   %li
                     = link_to "Sprints", sprints_path
 
+            - if can? :index, Project
+              %h5 Projects
+              %nav
+                %ul.nav.nav-tabs.nav-stacked
+                  - Project.all.each do |project|
+                    %li= link_to project, project_path(project)
     
             - if can? :index, Sprint
               %h5 Recent Sprints
@@ -67,24 +85,14 @@
                   - Sprint.all.each do |sprint|
                     %li= link_to sprint, sprint_path(sprint)
 
-            - if can? :index, Project
-              %h5 Projects
-              %nav
-                %ul.nav.nav-tabs.nav-stacked
-                  - Project.all.each do |project|
-                    %li= link_to project, project_path(project)
-
           .span9
-            %p#notice= notice
-            %p#alert= alert
-            / - flash.each do |k, f|
-            /   \#{k} : #{f}
+            = render 'shared/alerts'
             = yield
           
     %footer
       .container
         %hr
-        © Batkiwi 2012
+        © Batkiwi 2012 - #{Time.now.year}
         %br
         %br
         %br

@@ -89,4 +89,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def set_rol
+    if params[:_method] == 'post'
+      @user.add_role params[:rol]
+      redirect_to :back, notice: 'Rol changed.'
+    elsif params[:_method] == 'delete'
+      @user.remove_role params[:rol]
+      redirect_to :back, notice: 'Rol changed.'
+    end
+  end
+
 end

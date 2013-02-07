@@ -44,6 +44,16 @@ class Task < ActiveRecord::Base
   scope :current, lambda{by_sprint Sprint.current}
   #(day && t.finish_at) ? ((t.finish_at < day) ? t.points : 0) : 0}.sum }
 
+  after_update :move_to_bottom_if_sprint_is_changed
+
+  def move_to_bottom_if_sprint_is_changed
+    # comprobamos que no sea el ultimo para no provocar un bucle infinito
+    if sprint_id_changed? && Task.last != self && !position_changed?
+      move_to_bottom
+    end
+  end
+  
+
   def in_progress?
     sittings.any? { |sitting| sitting.in_progress? }
   end

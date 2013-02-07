@@ -1,0 +1,21 @@
+.item
+  %a{href:user_path(user)}
+    = gravatar_for user
+    = user
+  -if can? :manage, user
+    ="<#{user.email}>"
+    = link_to 'Edit', edit_user_path(user)
+    |
+    = link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
+
+
+    -# Role.global.each do |rol|
+    - [:admin, :scrum_master, :developer, :approved].each do |rol|
+      |
+      -if user.has_role? rol
+        = link_to rol.to_s.humanize, rol_user_path(user, rol: rol), method: :delete, class: "label label-success"
+      -else
+        = link_to rol.to_s.humanize, rol_user_path(user, rol: rol), method: :post, class: "label label-important"
+
+    -#- user.roles.global.each do |rol|
+    -#  .label #{rol.name}

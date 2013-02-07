@@ -5,3 +5,11 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+p "Adding admin"
+u = User.find_or_create_by_name({name: 'admin', email: 'admin@kiwitime.com', password: 'qwerty'})
+
+u.add_role :admin
+u.add_role :scrum_master
+u.add_role :developer
+u.add_role :approved

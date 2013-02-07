@@ -11,6 +11,7 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'cancan'
+gem "rolify"
 gem 'figaro'
 
 gem 'http_accept_language'
@@ -29,8 +30,10 @@ gem 'gravatar_image_tag'
 
 # Gems Used only for assets and not required
 # in production environments by default.
-group :debug do
-  gem 'nested_scaffold'
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'meta_request'
 end
 
 group :assets do
@@ -61,3 +64,4 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
+

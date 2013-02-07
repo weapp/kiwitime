@@ -24,8 +24,6 @@
                 = form_for([sprint, sprint.workings.build], html:{class: "form-inline"}) do |f|
                   = f.hidden_field :day, value: d
                   = f.number_field :points, step:'0.5', min: '0', class: 'span1'
-                  = f.submit :send
-
-                (add)
+                  = f.submit :ok
       = link_to 'new working', new_sprint_working_path(sprint)
 

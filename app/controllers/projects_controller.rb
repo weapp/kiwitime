@@ -106,4 +106,16 @@ class ProjectsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+  def set_rol
+    User.find(params[:user]).add_role params[:rol], @project
+    redirect_to :back, notice: 'Rol changed.'
+  end
+
+  def delete_rol
+    User.find(params[:user]).remove_role params[:rol], @project
+    redirect_to :back, notice: 'Rol changed.'
+  end
+
 end
