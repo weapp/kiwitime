@@ -140,7 +140,8 @@ body .grey-points{
 	}
 
 	&.sum{
-		margin: 0 -8px;
+    width: 4em;
+		margin: 0 .7ex;
 		border: 8px solid transparent;
 		border-top: 1px solid #DDD;
 		.sum-label{
@@ -211,8 +212,10 @@ a span{cursor: pointer;}
 
 .form-signin {
   max-width: 300px;
-  padding: 19px 29px 29px;
   margin: 0 auto 20px;
+}
+.form-box, .form-signin{
+  padding: 19px 29px 29px;
   background-color: #fff;
   border: 1px solid #e5e5e5;
   -webkit-border-radius: 5px;
@@ -220,8 +223,12 @@ a span{cursor: pointer;}
           border-radius: 5px;
   -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
      -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-          box-shadow: 0 1px 2px rgba(0,0,0,.05);
+          box-shadow: 0 1px 2px rgba(0,0,0,.05); 
+  .form-actions{
+    margin:20px -29px -29px;
+  } 
 }
+
 
 body .hero-unit{
 	background: image-url('office.jpg') no-repeat center 60%;
@@ -240,3 +247,6 @@ body .hero-unit{
 		}
 	}
 }
+
+.trash{opacity: 0; margin: .5ex .5ex .5ex 0;}
+.task:hover .trash{opacity:1;}

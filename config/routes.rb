@@ -32,6 +32,7 @@ Kiwitime::Application.routes.draw do
     post 'rol' => :set_rol, on: :member
     delete 'rol' => :delete_rol, on: :member
     resources :tasks do
+      post :suggest, on: :collection
       post :sort, on: :collection
       resources :sittings
       resources :comments, except: :index

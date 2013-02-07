@@ -60,6 +60,21 @@ class TasksController < ApplicationController
     end
   end
 
+  # POST /tasks
+  # POST /tasks.json
+  def suggest
+    @task = @project.tasks.create params[:task]
+    respond_to do |format|
+      if @task.save
+        format.html { redirect_to [@project], notice: 'Task was successfully created.' }
+        format.json { render json: @task, status: :created, location: @task }
+      else
+        format.html { redirect_to :back, alert: 'Task can\'t be created.'}
+        format.json { render json: @task.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # PUT /tasks/1
   # PUT /tasks/1.json
   def update

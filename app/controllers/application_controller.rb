@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    flash[:alert] = "Access denied."
+    flash.now[:alert] = "Access denied."
     #redirect_to new_user_session_path
     render 'shared/denied'
   end

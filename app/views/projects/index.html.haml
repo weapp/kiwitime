@@ -16,6 +16,7 @@
 
 %br
 
-%br
-.pull-right
-  %a.btn.btn-primary(href=new_project_path) New Project
+-if can? :create, Project
+  %br
+  .pull-right
+    %a.btn.btn-primary(href=new_project_path) New Project

@@ -35,7 +35,7 @@ class ProjectsController < ApplicationController
 
   def chart(sprint)
     data = @project.stats(sprint)
-    if data[0][1].present?
+    if data[0] && data[0][1].present?
       data_table = GoogleVisualr::DataTable.new
       # Add Column Headers 
       data_table.new_column('string', 'Day' ) 

@@ -4,7 +4,7 @@
 #
 #  id          :integer          not null, primary key
 #  name        :string(255)
-#  description :string(255)
+#  description :text
 #  project_id  :integer
 #  finished    :boolean
 #  created_at  :datetime         not null
