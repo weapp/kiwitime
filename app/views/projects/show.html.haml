@@ -1,34 +1,3 @@
-:javascript
-  $(document).ajaxSend(function(e, xhr, options) {
-  var token = $("meta[name='csrf-token']").attr("content");
-  xhr.setRequestHeader("X-CSRF-Token", token);
-  });
-  // Sorting the list
-  
-  $(document).ready(function(){
-     $('.sortable').sortable({
-         placeholder: "ui-state-highlight",
-         axis: 'y',
-         dropOnEmpty: false,
-         handle: '.handle',
-         cursor: 'move',
-         items: '.row',
-         opacity: 0.4,
-         scroll: true,
-         update: function(){
-            var el = this;
-            $.ajax({
-                type: 'post',
-                data: $(el).sortable('serialize'),
-                dataType: 'script',
-                complete: function(request){
-                   $(el).effect('highlight');
-                },
-                   url: '#{sort_project_tasks_path(@project)}'})
-                }
-            });
-       });
-
 
 .page-header
   %h2
@@ -79,7 +48,7 @@
       %small (#{@sprint})
   -if @task_current_sprint.present?
     #tasks.sortable
-      =render @task_current_sprint, sortable: true
+      =render @task_current_sprint
     .pull-right
       .grey-points.sum
         .sum-label

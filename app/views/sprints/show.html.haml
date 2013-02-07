@@ -13,8 +13,8 @@
             Delete
 
 -unless @sprint.tasks.empty?
-  #tasks
-    =render @sprint.tasks
+  #tasks.sortable
+    =render @sprint.tasks, sortable: true
   
 #chart
 -if @sprint.chart

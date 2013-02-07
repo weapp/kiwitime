@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require js-routes
 //= require_tree .
 
 
@@ -29,3 +30,39 @@ $(function(){
       buttonImageOnly: true
   });
 }); 
+
+
+// Sorting the list
+
+$(function(){
+  $(document).ajaxSend(function(e, xhr, options) {
+    var token = $("meta[name='csrf-token']").attr("content");
+    xhr.setRequestHeader("X-CSRF-Token", token);
+  });
+
+
+  $('.sortable').sortable(
+  {
+    placeholder: "ui-state-highlight",
+    axis: 'y',
+    dropOnEmpty: false,
+    handle: '.handle',
+    cursor: 'move',
+    items: '.row',
+    opacity: 0.4,
+    scroll: true,
+    update: function(){
+      var el = this;
+      $.ajax({
+        type: 'post',
+        data: $(el).sortable('serialize'),
+        dataType: 'script',
+        complete: function(request){
+          $(el).effect('highlight');
+        },
+        url: '/tasks/sort'
+      })
+    }
+  });
+});
+

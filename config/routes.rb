@@ -27,13 +27,15 @@ Kiwitime::Application.routes.draw do
   #match '/signout', to: 'sessions#destroy'
   #match '/signup', to: 'users#new'
 
+  resources :tasks, only: [] do
+    post :sort, on: :collection
+  end
 
   resources :projects, path: 'p' do
     post 'rol' => :set_rol, on: :member
     delete 'rol' => :delete_rol, on: :member
     resources :tasks do
       post :suggest, on: :collection
-      post :sort, on: :collection
       resources :sittings
       resources :comments, except: :index
       member do
@@ -51,7 +53,6 @@ Kiwitime::Application.routes.draw do
       get 'sprint/:sprint_id' => :sprint, as: :sprint
     end
   end
-
 
   authenticated do
     root to: "projects#index"
