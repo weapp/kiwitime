@@ -28,9 +28,10 @@
     - @task.comments.each do |comment|
       .row
         .span5.comment
-          .pull-right
-            %a{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_comment_path(@project, @task, comment), rel: "nofollow"}
-              %i.icon-remove
+          -if can? :destroy, comment
+            .pull-right
+              %a{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_comment_path(@project, @task, comment), rel: "nofollow"}
+                %i.icon-remove
           %b
             = comment.user
           = comment.message
