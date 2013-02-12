@@ -13,9 +13,9 @@ gem 'omniauth-google-oauth2'
 gem 'cancan'
 gem "rolify"
 gem 'figaro'
-
+#gem 'capistrano'
 gem 'http_accept_language'
-
+gem 'rvm-capistrano'
 gem 'haml'
 gem 'simple_form'
 gem 'will_paginate'
