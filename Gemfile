@@ -16,6 +16,8 @@ gem 'figaro'
 #gem 'capistrano'
 gem 'http_accept_language'
 gem 'rvm-capistrano'
+
+gem "js-routes"
 gem 'haml'
 gem 'simple_form'
 gem 'will_paginate'

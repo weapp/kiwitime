@@ -20,7 +20,7 @@
       %i.icon-ok.icon-gray
 
   .pull-right.trash
-    %a{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_path(@project, task), rel: "nofollow"}
+    %a{"data-confirm" => "Are you sure?", "data-method" => "delete", href: project_task_path(task.project, task), rel: "nofollow"}
       %i.icon-trash
 
   .pull-right

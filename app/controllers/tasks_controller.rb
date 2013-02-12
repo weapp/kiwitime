@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
-  load_and_authorize_resource :project
-  load_and_authorize_resource :task, :through => :project
+  load_and_authorize_resource :project, except: :sort
+  load_and_authorize_resource :task, through: :project, except: :sort
 
   def index
     respond_to do |format|

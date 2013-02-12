@@ -1,5 +1,5 @@
 - @fullpage = true
-- unless current_user.has_role? :approved
+- unless current_user && (current_user.has_role? :approved)
   .alert
     %button.close{"data-dismiss" => "alert", :type => "button"} &times;
     %strong Warning!
