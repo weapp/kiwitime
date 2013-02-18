@@ -1,71 +1,70 @@
 set :application, "kiwitime"
-set :repository,  "git://git.batkiwi.com:kiwitime.git"
+ 
+# RVM integration
+# http://beginrescueend.com/integration/capistrano/
+require "rvm/capistrano"
+set :rvm_ruby_string, "1.9.2"
+#set :rvm_type, :user
+ 
+# Bundler integration (bundle install)
+# http://gembundler.com/deploying.html
+require "bundler/capistrano"
+set :bundle_without,  [:development, :test]
+ 
 
-set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
-
-set :deploy_to, "/var/www/#{application}"
-
-set :user, "deploy"
+set :deploy_to, "/var/www/apps/#{application}"
 set :use_sudo, false
-
-
-
-
-
+ 
+# Must be set for the password prompt from git to work
+# http://help.github.com/deploy-with-capistrano/
+default_run_options[:pty] = true 
+set :scm, :git
+set :repository, "https://github.com/weapp/kiwitime.git"
+set :branch, "master"
+set :deploy_via, :remote_cache
+set :domain, "localhost"
+#ssh_options[:port] = 22
+role :app, domain
+role :web, domain
+role :db, domain, :primary => true
+#set :deploy_via, :remote_cache
+set :branch, 'master'
+set :rails_env, "production"
+# Multiple Stages Without Multistage Extension
+# https://github.com/capistrano/capistrano/wiki/2.x-Multiple-Stages-Without-Multistage-Extension
+ 
+# http://modrails.com/documentation/Users%20guide%20Nginx.html#capistrano
 namespace :deploy do
-
-  desc "Setup a GitHub-style deployment."
-  task :setup, :except => { :no_release => true } do
-    commands = ["mkdir -p #{deploy_to}",
-               "git clone #{repository} #{current_path}",
-               "mkdir -p #{current_path}/tmp",
-               "mkdir -p #{deploy_to}/shared/config",
-               "mkdir -p #{deploy_to}/shared/files",
-               "mkdir -p #{deploy_to}/shared/log",
-               "mkdir -p #{deploy_to}/shared/system",
-               "mkdir -p #{deploy_to}/shared/tmp",
-               "mkdir -p #{deploy_to}/shared/db"]
-   run commands.join(" && ")
-  end
-    
-end
-
-
-
-
-
-role :web, "your web-server here"                          # Your HTTP server, Apache/etc
-role :app, "your app-server here"                          # This may be the same as your `Web` server
-role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
-role :db,  "your slave db-server here"
-
-# if you want to clean up old releases on each deploy uncomment this:
-# after "deploy:restart", "deploy:cleanup"
-
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
-
-# If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
-
-# tasks
-namespace :deploy do
+  desc "Start server"
   task :start, :roles => :app do
-    run "touch #{current_path}/tmp/restart.txt"
+    run "#{try_sudo} touch #{File.join(release_path,'tmp','restart.txt')}"
   end
-
+  
+  # not supported by Passenger server
   task :stop, :roles => :app do
-    # Do nothing.
+  end
+  
+  desc "Restart server"
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "#{try_sudo} touch #{File.join(release_path,'tmp','restart.txt')}"
   end
 
-  desc "Restart Application"
-  task :restart, :roles => :app do
-    run "touch #{current_path}/tmp/restart.txt"
+  desc "Run bundler to update the gemset"
+  task :bundle, :roles => :app do
+     run "cd #{current_release} && bundle install --path #{deploy_to}/shared/bundle --without test:development"
+     run "cd #{current_release} && bundle install --without test:development"
+  end
+  
+  desc "Symlink shared configs and folders on each release."
+  task :symlink_shared, :roles => :app do
+    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+    #run "ln -nfs #{shared_path}/assets #{release_path}/public/assets"
+  end
+  
+  desc "Execute migrations"
+  task :migrate, :roles => :db do
+    run "bundle exec rake db:migrate"
   end
 end
+ 
+#after 'deploy:update_code', 'deploy:symlink_shared'
