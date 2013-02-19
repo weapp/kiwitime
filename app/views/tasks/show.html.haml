@@ -11,9 +11,9 @@
             %i.icon-remove.icon-white
             Delete
     %span{class:('completedtask' if @task.finished)}
-      \#{@task.name}
+      \ ##{@task.id} - #{@task.name} 
       /%i.icon-ok{style:'opacity:0.3'}
-      %small
+      %small 
         ( on 
         %a{href:project_tasks_path}=@task.project && @task.project.name 
         )

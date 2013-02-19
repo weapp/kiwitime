@@ -13,8 +13,9 @@ gem 'omniauth-google-oauth2'
 gem 'cancan'
 gem "rolify"
 gem 'figaro'
-
+#gem 'capistrano'
 gem 'http_accept_language'
+gem 'rvm-capistrano'
 
 gem "js-routes"
 gem 'haml'

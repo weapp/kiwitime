@@ -23,7 +23,7 @@ class Task < ActiveRecord::Base
   #CATEGORIES = [ :feature, :bug, :chore, :release ]
   CATEGORIES = [ :feature, :bug, :chore ]
 
-  attr_accessible :description, :finished, :name, :project_id, :points, :sprint_id, :category
+  attr_accessible :id,:description, :finished, :name, :project_id, :points, :sprint_id, :category
 
   belongs_to :project
   belongs_to :sprint
