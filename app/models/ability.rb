@@ -18,8 +18,10 @@ class Ability
       #Product Owners
       owner = Project.with_role(:product_owner, user).map{ |project| project.id }
       can :read, Project, :id => owner
-      can [:suggest, :destroy, :read, :accept, :reject], Task, project_id: owner
+      can [:suggest, :read, :accept, :reject], Task, project_id: owner
+      can [:destroy], Task, project_id: owner, sprint_id: nil
       can [:manage], Comment, task: {project_id: owner}
+
 
       can [:sort], Task, {project_id: owner}
 

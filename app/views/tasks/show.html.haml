@@ -34,7 +34,7 @@
                 %i.icon-remove
           %b
             = comment.user
-          = comment.message
+          = (simple_format comment.message) 
           .muted
             = comment.created_at.to_s(:short)
     .form-actions
@@ -50,7 +50,7 @@
                 %li= msg
 
         .field
-          = f.text_field :message, class: "span3"
+          = f.text_area :message, class: "span3", rows:3
           = f.submit class: "span1", value: "Send"
 
         -#  .field

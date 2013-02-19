@@ -64,7 +64,7 @@ class Project < ActiveRecord::Base
         d = w.day
         [
           d.strftime("%a, %d %b"),
-          (Time.now >= d) ? (tp - tasks.select{|t| t.finished_at d }.collect{|t| t.points || 0}.sum) : nil,
+          (Time.now >= d) ? (tp - tasks.select{|t| (t.finished_at d) && t.sprint_id == sprint.id }.collect{|t| t.points || 0}.sum) : nil,
           (tp * (days - n) / (days)).to_f,
         ]
       end
