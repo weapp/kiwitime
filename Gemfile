@@ -17,6 +17,8 @@ gem 'figaro'
 gem 'http_accept_language'
 gem 'rvm-capistrano'
 
+gem "thin"
+
 gem "js-routes"
 gem 'haml'
 gem 'simple_form'
@@ -45,7 +47,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  
+
   gem 'uglifier', '>= 1.0.3'
 end
 
