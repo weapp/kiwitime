@@ -38,8 +38,8 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
-  gem 'therubyracer', :platforms => :ruby
-  gem 'libv8', '~> 3.11.8'
+  #gem 'therubyracer', :platforms => :ruby
+  #gem 'libv8', '~> 3.11.8'
 end
 
 group :assets do

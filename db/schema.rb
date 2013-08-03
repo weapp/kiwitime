@@ -63,16 +63,16 @@ ActiveRecord::Schema.define(:version => 20130207103318) do
 
   create_table "tasks", :force => true do |t|
     t.string   "name"
-    t.text     "description"
+    t.text     "description", :limit => 255
     t.integer  "project_id"
     t.boolean  "finished"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
     t.integer  "position"
     t.integer  "sprint_id"
     t.float    "points"
     t.string   "status"
-    t.string   "category",    :default => "feature"
+    t.string   "category",                   :default => "feature"
   end
 
   create_table "users", :force => true do |t|
@@ -83,8 +83,6 @@ ActiveRecord::Schema.define(:version => 20130207103318) do
     t.string   "encrypted_password"
     t.string   "salt"
     t.boolean  "admin",                  :default => false
-    t.string   "provider"
-    t.string   "uid"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -95,7 +93,6 @@ ActiveRecord::Schema.define(:version => 20130207103318) do
     t.string   "last_sign_in_ip"
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "users_roles", :id => false, :force => true do |t|
